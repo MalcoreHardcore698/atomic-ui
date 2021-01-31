@@ -112,11 +112,11 @@ export function getFile(file) {
   return { file, id: v4(), blob: file.type?.includes('image') && URL.createObjectURL(file) }
 }
 
-export async function compressedUpload(file) {
+export async function compressedUpload(file, maxWidthOrHeight = 1366) {
   try {
     return await imageCompression(file, {
       maxSizeMB: 1,
-      maxWidthOrHeight: 1920,
+      maxWidthOrHeight,
       useWebWorker: true
     })
   } catch (error) {
@@ -151,13 +151,26 @@ export const Dropzone = ({
 
       if (multiple) {
         for (let file of droppedFiles) {
-          const compressedFile =
-            file.type === 'application/image' ? await compressedUpload(file) : file
-          if (compressedFile)
+          let compressedFile
+          let miniature
+
+          if (file.type?.includes('image')) {
+            compressedFile = await compressedUpload(file)
+            miniature = await compressedUpload(file, 185)
+          } else {
+            compressedFile = file
+          }
+
+          if (compressedFile) {
             candidate.push({
               ...getFile(compressedFile),
-              size: file.size
+              size: compressedFile.size,
+              miniature: {
+                ...getFile(miniature),
+                size: miniature.size
+              }
             })
+          }
         }
       }
 

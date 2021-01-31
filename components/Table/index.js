@@ -158,6 +158,7 @@ export const Table = ({
   onEdit
 }) => {
   const defaultWidth = `${Math.floor(100 / template.length)}%`
+  /* eslint-disable-next-line */
   const [headers, setHeaders] = useState(
     (template || []).map((item) => ({
       value: v4(),
@@ -167,6 +168,7 @@ export const Table = ({
       visible: !item.hidden
     }))
   )
+  /* eslint-disable-next-line */
   const [header, setHeader] = useState(headers[0] || null)
 
   return (

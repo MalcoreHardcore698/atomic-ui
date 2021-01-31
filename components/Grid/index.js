@@ -14,7 +14,7 @@ export const Wrap = styled.div`
   }
 
   @media only screen and (max-width: 480px) {
-    grid-template-columns: repeat(auto-fill,minmax(285px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
   }
 `
 

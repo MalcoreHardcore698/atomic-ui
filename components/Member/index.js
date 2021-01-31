@@ -14,13 +14,15 @@ export const Wrap = styled(Row)`
   width: 100%;
   transition: opacity 150ms ease;
 
-  ${({ onClick }) => (onClick) && css`
-    cursor: pointer;
+  ${({ onClick }) =>
+    onClick &&
+    css`
+      cursor: pointer;
 
-    &:hover {
-      opacity: .65;
-    }
-  `}
+      &:hover {
+        opacity: 0.65;
+      }
+    `}
 `
 
 export const Content = styled(Column)`
@@ -33,13 +35,15 @@ export const NameRow = styled(Row)`
   justify-content: space-between;
   transition: opacity 150ms ease;
 
-  ${({ onClick }) => (onClick) && css`
-    cursor: pointer;
+  ${({ onClick }) =>
+    onClick &&
+    css`
+      cursor: pointer;
 
-    &:hover {
-      opacity: .65;
-    }
-  `}
+      &:hover {
+        opacity: 0.65;
+      }
+    `}
 `
 
 export const Name = styled(Title)`
@@ -77,15 +81,15 @@ export const Member = ({
   onClick
 }) => (
   <Wrap className={className} style={style} onClick={onClick}>
-    {(avatar) && <Avatar src={avatar} alt={'Avatar'} />}
+    {avatar && <Avatar src={avatar} alt={'Avatar'} />}
 
     <Content>
       <NameRow onClick={onLink}>
         <Name tag={'h5'}>{name}</Name>
-        {(rating) && <Rating defaultValue={rating} size={'xs'} readOnly />}
+        {rating && <Rating defaultValue={rating} size={'xs'} readOnly />}
       </NameRow>
       <Position>{position}</Position>
-      {(budge) && <Counter count={budge} />}
+      {budge && <Counter count={budge} />}
     </Content>
   </Wrap>
 )

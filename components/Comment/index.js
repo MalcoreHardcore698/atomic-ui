@@ -20,13 +20,15 @@ export const Name = styled(Text)`
   color: var(--default-color-accent);
   transition: opacity 150ms ease;
 
-  ${({ onClick }) => (onClick) && css`
-    cursor: pointer;
+  ${({ onClick }) =>
+    onClick &&
+    css`
+      cursor: pointer;
 
-    &:hover {
-      opacity: .65;
-    }
-  `}
+      &:hover {
+        opacity: 0.65;
+      }
+    `}
 `
 
 export const Message = styled(Text)`

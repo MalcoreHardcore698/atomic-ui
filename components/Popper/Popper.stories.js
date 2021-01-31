@@ -14,16 +14,11 @@ storiesOf('Components API/Data Display/Popper', module).add('Default', () => {
         place={'bottom'}
         offset={{ right: 68 }}
         body={<Menu key={'menu'} />}
-        appearance={'clear'}
-      >
+        appearance={'clear'}>
         <Button>Open Menu</Button>
       </Popper>
 
-      <Popper
-        place={'right'}
-        body={<Text key={'text'}>Popper Text</Text>}
-        appearance={'tooltip'}
-      >
+      <Popper place={'right'} body={<Text key={'text'}>Popper Text</Text>} appearance={'tooltip'}>
         <Button>Open Text</Button>
       </Popper>
     </Column>

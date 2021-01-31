@@ -24,11 +24,8 @@ export const Menu = styled(BaseMenu)`
 export const Dash = ({ links }) => (
   <Wrap>
     <Divider clear />
-  
-    <Menu
-      links={links}
-      appearance={'clear'}
-    />
+
+    <Menu links={links} appearance={'clear'} />
 
     <Divider clear />
   </Wrap>
