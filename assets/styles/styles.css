@@ -1,0 +1,9 @@
+@import './reset.css';
+@import './animations.css';
+
+body {
+  font-family: 'Poppins', 'Montserrat', 'Roboto', 'Arial', sans-serif;
+  font-weight: 400;
+  font-size: .875rem;
+  background: var(--main-background);
+}

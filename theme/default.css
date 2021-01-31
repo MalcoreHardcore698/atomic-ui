@@ -1,0 +1,97 @@
+:root {
+  --main-offset-l: 15%;
+  --main-offset-m: 5%;
+  --main-offset-s: 45px;
+  --main-offset-xs: 15px;
+  --main-background: #F8F8F8;
+  
+  /* Default */
+  --default-gap: 15px;
+  --default-color-accent: #2979FF;
+  --default-color-accent-gray: #B2C5E4;
+  --default-color-accent-dim: #CFDFF9;
+  --default-color-accent-link: #133774;
+  --default-color-accent__hover: #005FFF;
+  --default-color-accent-dim__hover: #B9CEEF;
+  --default-color-text: #ACACAC;
+  --default-color-orange: #F3AB3E;
+  --default-color-orange-dim: #fff7ea;
+  --default-color-green: #00B929;
+  --default-color-green-dim: #C0E9BF;
+  --default-color-green__hover: #00A324;
+  --default-color-green-dim__hover: #91E38F;
+  --default-color-red: #D65252;
+  --default-color-red-dim: #F5D4D4;
+  --default-color-red__hover: #C24040;
+  --default-color-red-dim__hover: #E9AFAF;
+  --default-color-overlay: rgba(0, 0, 0, .4);
+  --default-font-family: 'Poppins', 'Montserrat', 'Roboto', 'Arial', sans-serif;
+  --default-shadow: 0 0 10px 0 rgba(0, 0, 0, .125);
+  --default-border: 1px solid #efefef;
+
+  --admin-color-accent: #4A4B57;
+  --admin-color-accent-dim: #3D3E48;
+
+  --ghost-color-text: #9797A0;
+  --ghost-color-background: #F0F0F1;
+  
+  /* Typography */
+  --font-size-xs: .625rem;
+  --font-size-s: .75rem;
+  --font-size-m: .875rem;
+  --font-size-l: 1rem;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 600;
+  --font-h1: 2rem 600 1.2;
+  --font-h2: 1.75rem 600 1.2;
+  --font-h3: 1.5rem 600 1.2;
+  --font-h4: 1.25rem 600 1.2;
+  --font-h5: 1.125rem 600 1.2;
+  --font-h6: 1.0625rem 600 1.2;
+
+  /* Surface */
+  --surface-color: black;
+  --surface-background: white;
+  --surface-border: none;
+  --surface-border-radius: 8px;
+  --surface-shadow: 0 1px 2px rgba(0, 0, 0, .06);
+
+  /* Input */
+  --input-height-xs: 26px;
+  --input-height-s: 32px;
+  --input-height-m: 40px;
+  --input-height-l: 64px;
+
+  --input-offset-xs: 0 5px;
+  --input-offset-s: 4px 10px;
+  --input-offset-m: 5px 15px;
+  --input-offset-l: 10px 25px;
+
+  --input-color: black;
+  --input-placeholder-color: #C4C4C4;
+  --input-background: #F5F5F5;
+
+  --chip-height-xs: 14px;
+  --chip-height-s: 18px;
+  --chip-height-m: 26px;
+
+  --space-offset-xs: 3px 5px;
+  --space-offset-s: 5px 12px;
+
+  --gap-xs: 5px;
+  --gap-s: 15px;
+  --gap-m: 30px;
+
+  /* Z Index */
+  --z-override: 9999;
+  --z-102: 102;
+  --z-101: 101;
+  --z-100: 100;
+  --z-15: 15;
+  --z-13: 13;
+  --z-12: 12;
+  --z-11: 11;
+  --z-10: 10;
+}

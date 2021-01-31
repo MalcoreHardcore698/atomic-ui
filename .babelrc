@@ -1,0 +1,14 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "8.10"
+        }
+      }
+    ]
+  ],
+  "plugins": ["@babel/plugin-transform-react-jsx", ["styled-components"]],
+  "compact": false
+}
