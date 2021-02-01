@@ -17,6 +17,8 @@ export const Magnify = styled.div`
   height: 100%;
   z-index: var(--z-12);
   border-radius: var(--surface-border-radius);
+  opacity: 1 !important;
+  cursor: crosshair !important;
 
   ${({ portal, scale }) =>
     portal &&
