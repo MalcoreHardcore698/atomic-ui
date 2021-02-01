@@ -7,6 +7,10 @@ import Text from '../Text'
 export const Wrap = styled(Row)`
   align-items: center;
   grid-gap: 25px;
+
+  @media only screen and (max-width: 480px) {
+    flex-direction: column;
+  }
 `
 
 export const QuestionMark = styled(Text)`
@@ -22,6 +26,8 @@ export const QuestionMark = styled(Text)`
   color: #1b2e50;
   width: 96px;
   height: 96px;
+  min-width: 96px;
+  min-height: 96px;
 `
 
 export const TapeText = styled(Text)`
