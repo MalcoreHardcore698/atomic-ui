@@ -60,6 +60,7 @@ export const Wrap = styled(Row)`
   ${({ type }) =>
     type === 'solid' &&
     css`
+      height: 128px;
       align-items: flex-end;
       font-size: var(--font-h3);
       font-weight: 700;

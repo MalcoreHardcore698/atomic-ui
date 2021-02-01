@@ -185,7 +185,7 @@ export const Modal = ({ size, routes, closeByBackground, onHide }) => {
 
     const title = routes?.find((route) => compare(route))?.title
 
-    return title || 'Default Title'
+    return title || ''
   }
 
   const getRoute = () => {
