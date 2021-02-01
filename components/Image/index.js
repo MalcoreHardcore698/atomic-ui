@@ -20,12 +20,13 @@ export const Magnify = styled.div`
   opacity: 1 !important;
   cursor: crosshair !important;
 
-  ${({ portal, scale }) =>
+  ${({ portal, scale, bottomOffset }) =>
     portal &&
     css`
-      top: calc(-${100 + 25 * scale}% - 15px);
+      top: calc(-${bottomOffset || 100}% - 15px);
       border: var(--surface-border);
       box-shadow: var(--default-shadow);
+      border-radius: ${8 / scale};
       transform: scale(${scale});
     `}
 `
@@ -37,7 +38,17 @@ export const Source = styled.img`
   cursor: crosshair !important;
 `
 
-export const Image = ({ src, width, height, portal, magnify, scale, multiply, ...props }) => {
+export const Image = ({
+  src,
+  width,
+  height,
+  portal,
+  magnify,
+  scale,
+  multiply,
+  bottomOffset,
+  ...props
+}) => {
   const [state, setState] = useState({
     backgroundImage: `url(${src})`,
     backgroundPosition: '0% 0%',
@@ -74,7 +85,13 @@ export const Image = ({ src, width, height, portal, magnify, scale, multiply, ..
       style={{ width, height }}
       onMouseMove={!portal && handleMouseMove}
       onMouseLeave={!portal && handleMouseLeave}>
-      <Magnify {...props} style={{ ...state, width, height }} portal={portal} scale={scale} />
+      <Magnify
+        {...props}
+        style={{ ...state, width, height }}
+        bottomOffset={bottomOffset}
+        portal={portal}
+        scale={scale}
+      />
       <Source
         {...props}
         src={src}
@@ -89,6 +106,7 @@ export const Image = ({ src, width, height, portal, magnify, scale, multiply, ..
 }
 
 Image.defaultProps = {
+  bottomOffset: 125,
   multiply: 3,
   scale: 2
 }
