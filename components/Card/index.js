@@ -15,6 +15,17 @@ export const Wrap = styled(Row)`
   border: var(--surface-border);
   border-radius: var(--surface-border-radius);
   overflow: hidden;
+  transition: all 150ms ease;
+
+  ${({ onClick }) =>
+    onClick &&
+    css`
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.75;
+      }
+    `}
 
   p {
     font-size: var(--font-h3);
@@ -75,7 +86,9 @@ export const Extras = styled.span`
     css`
       position: relative;
       top: 4px;
-      font-size: 60px;
+      align-items: flex-end;
+      height: 128px;
+      font-size: 170px;
       font-weight: 700;
       color: ${color.dim};
       line-height: 0;
@@ -86,7 +99,7 @@ export const Extras = styled.span`
         circle {
           stroke: ${color.dim};
         }
-        transform: scale(2.35);
+        transform: scale(6);
       }
     `}
 `
@@ -110,8 +123,8 @@ export const getColor = (color) => {
   }
 }
 
-export const Card = ({ text, color, extras, type, ...props }) => (
-  <Wrap type={type} color={getColor(color)} {...props}>
+export const Card = ({ text, color, extras, type, onClick, ...props }) => (
+  <Wrap type={type} color={getColor(color)} {...props} onClick={onClick}>
     <Text>{text}</Text>
     <Extras type={type} color={getColor(color)}>
       {typeof extras === 'string' ? <Image src={extras} alt={'Icon'} /> : extras}

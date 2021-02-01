@@ -33,6 +33,7 @@ export const TapeText = styled(Text)`
   font-weight: 700;
   color: #1b2e50;
   height: min-content;
+  width: 100%;
 `
 
 export const Tape = ({ text, ...props }) => (

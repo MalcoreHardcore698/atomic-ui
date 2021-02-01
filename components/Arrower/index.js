@@ -10,6 +10,12 @@ export const Wrap = styled(Row)`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+
+  ${({ noMargin }) =>
+    noMargin &&
+    css`
+      margin: 0;
+    `}
 `
 
 export const Label = styled.div`
@@ -38,7 +44,7 @@ export const Label = styled.div`
 
 export const ArrowButton = styled(Button)``
 
-const Arrower = ({ label, appearance, arrowLeft, arrowRight, onChange }) => {
+const Arrower = ({ label, appearance, arrowLeft, arrowRight, noMargin, onChange }) => {
   const onChangeMonth = (sign) => {
     if (onChange) onChange(sign)
   }
@@ -47,7 +53,7 @@ const Arrower = ({ label, appearance, arrowLeft, arrowRight, onChange }) => {
   const onNextMonth = () => onChangeMonth(1)
 
   return (
-    <Wrap>
+    <Wrap noMargin={noMargin}>
       <ArrowButton
         type={'button'}
         size={'s'}
