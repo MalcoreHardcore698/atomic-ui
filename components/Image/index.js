@@ -10,7 +10,7 @@ export const Wrap = styled.figure`
 `
 
 export const Magnify = styled.div`
-  position: absolute;
+  position: absolute !important;
   top: 0;
   left: 0;
   width: 100%;
@@ -39,12 +39,14 @@ export const Image = ({ src, width, height, portal, magnify, scale, multiply, ..
     backgroundPosition: '0% 0%',
     display: 'none'
   })
+  const [opacity, setOpacity] = useState(1)
 
   const handleMouseMove = (e) => {
     const { left, top, width, height } = e.target.getBoundingClientRect()
     const x = (e.pageX - left) / width * 100
     const y = (e.pageY - top) / height * 100
 
+    setOpacity(0)
     setState((prev) => ({
       ...prev,
       backgroundSize: `${100 * multiply}%`,
@@ -54,6 +56,7 @@ export const Image = ({ src, width, height, portal, magnify, scale, multiply, ..
   }
 
   const handleMouseLeave = () => {
+    setOpacity(1)
     setState((prev) => ({
       ...prev,
       backgroundPosition: '0% 0%',
@@ -80,7 +83,7 @@ export const Image = ({ src, width, height, portal, magnify, scale, multiply, ..
           src={src}
           onMouseMove={portal && handleMouseMove}
           onMouseLeave={portal && handleMouseLeave}
-          style={{ width, height }}
+          style={{ width, height, opacity }}
         />
       </Wrap>
     ) : (
