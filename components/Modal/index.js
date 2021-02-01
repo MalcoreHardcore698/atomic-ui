@@ -239,15 +239,17 @@ export const Modal = ({ size, routes, closeByBackground, onHide }) => {
 
         <Transition {...transitions.swing}>
           <Content className={`animate${animation ? ` ${animation}` : ''}`} size={size}>
-            <Headline>
-              {navigator.length > 1 && getRoute().back && (
-                <BackButton onClick={handleBack} appearance={'clear'}>
-                  <Icon icon={'arrowLeft'} />
-                </BackButton>
-              )}
+            {getTitle() && (
+              <Headline>
+                {navigator.length > 1 && getRoute().back && (
+                  <BackButton onClick={handleBack} appearance={'clear'}>
+                    <Icon icon={'arrowLeft'} />
+                  </BackButton>
+                )}
 
-              <StyledTitle tag={'h3'}>{getTitle()}</StyledTitle>
-            </Headline>
+                <StyledTitle tag={'h3'}>{getTitle()}</StyledTitle>
+              </Headline>
+            )}
 
             <Switch path={getPath(navigator)}>
               {(routes || []).map((props, key) => (
