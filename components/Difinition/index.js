@@ -62,6 +62,7 @@ export const Label = styled(Text)`
   font-size: var(--font-size-s);
   white-space: nowrap;
   width: 128px;
+  max-width: 400px;
   overflow: hidden;
   text-overflow: ellipsis;
 
