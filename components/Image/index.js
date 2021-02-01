@@ -23,16 +23,18 @@ export const Magnify = styled.div`
   ${({ portal, scale }) =>
     portal &&
     css`
-      top: calc(-${100 + (25 * scale)}% - 15px);
+      top: calc(-${100 + 25 * scale}% - 15px);
       border: var(--surface-border);
       box-shadow: var(--default-shadow);
-      transform: scale(${scale})
+      transform: scale(${scale});
     `}
 `
 
 export const Source = styled.img`
   overflow: hidden;
   border-radius: var(--surface-border-radius);
+  opacity: 1 !important;
+  cursor: crosshair !important;
 `
 
 export const Image = ({ src, width, height, portal, magnify, scale, multiply, ...props }) => {
@@ -45,8 +47,8 @@ export const Image = ({ src, width, height, portal, magnify, scale, multiply, ..
 
   const handleMouseMove = (e) => {
     const { left, top, width, height } = e.target.getBoundingClientRect()
-    const x = (e.pageX - left) / width * 100
-    const y = (e.pageY - top) / height * 100
+    const x = ((e.pageX - left) / width) * 100
+    const y = ((e.pageY - top) / height) * 100
 
     setOpacity(0)
     setState((prev) => ({
@@ -67,30 +69,22 @@ export const Image = ({ src, width, height, portal, magnify, scale, multiply, ..
     }))
   }
 
-  return (
-    magnify ? (
-      <Wrap
-        style={{ width, height }}
-        onMouseMove={!portal && handleMouseMove}
-        onMouseLeave={!portal && handleMouseLeave}
-      >
-        <Magnify
-          {...props}
-          style={{...state, width, height }}
-          portal={portal}
-          scale={scale}
-        />
-        <Source
-          {...props}
-          src={src}
-          onMouseMove={portal && handleMouseMove}
-          onMouseLeave={portal && handleMouseLeave}
-          style={{ width, height, opacity }}
-        />
-      </Wrap>
-    ) : (
-      <Source {...props} src={src} style={{ width, height }} />
-    )
+  return magnify ? (
+    <Wrap
+      style={{ width, height }}
+      onMouseMove={!portal && handleMouseMove}
+      onMouseLeave={!portal && handleMouseLeave}>
+      <Magnify {...props} style={{ ...state, width, height }} portal={portal} scale={scale} />
+      <Source
+        {...props}
+        src={src}
+        onMouseMove={portal && handleMouseMove}
+        onMouseLeave={portal && handleMouseLeave}
+        style={{ width, height, opacity }}
+      />
+    </Wrap>
+  ) : (
+    <Source {...props} src={src} style={{ width, height }} />
   )
 }
 
