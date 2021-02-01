@@ -60,6 +60,7 @@ export const Wrap = styled(Row)`
   ${({ type }) =>
     type === 'solid' &&
     css`
+      align-items: flex-end;
       font-size: var(--font-h3);
       font-weight: 700;
       color: white;
@@ -85,9 +86,8 @@ export const Extras = styled.span`
     color &&
     css`
       position: relative;
-      top: 4px;
+      top: 20px;
       align-items: flex-end;
-      height: 128px;
       font-size: 170px;
       font-weight: 700;
       color: ${color.dim};
