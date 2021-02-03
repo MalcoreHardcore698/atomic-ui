@@ -27,7 +27,7 @@ export const Magnify = styled.div`
       top: calc(-${bottomOffset || 100}% - 15px);
       border: var(--surface-border);
       box-shadow: var(--default-shadow);
-      border-radius: ${8 / scale};
+      border-radius: 2px;
       transform: scale(${scale});
     `}
 `
@@ -35,8 +35,13 @@ export const Magnify = styled.div`
 export const Source = styled.img`
   overflow: hidden;
   border-radius: var(--surface-border-radius);
-  opacity: 1 !important;
-  cursor: crosshair !important;
+
+  ${({ magnify }) =>
+    magnify &&
+    css`
+      opacity: 1 !important;
+      cursor: crosshair !important;
+    `}
 `
 
 export const Image = ({
@@ -99,6 +104,7 @@ export const Image = ({
         onMouseMove={portal && handleMouseMove}
         onMouseLeave={portal && handleMouseLeave}
         style={{ width, height, opacity }}
+        magnify={magnify}
       />
     </Wrap>
   ) : (
