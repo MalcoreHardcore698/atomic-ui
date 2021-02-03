@@ -17,6 +17,7 @@ export const Magnify = styled.div`
   height: 100%;
   z-index: var(--z-12);
   border-radius: var(--surface-border-radius);
+  background-repeat: no-repeat;
   opacity: 1 !important;
   cursor: crosshair !important;
 
@@ -83,8 +84,8 @@ export const Image = ({
   return magnify ? (
     <Wrap
       style={{ width, height }}
-      onMouseMove={!portal && handleMouseMove}
-      onMouseLeave={!portal && handleMouseLeave}>
+      onMouseMove={!portal ? handleMouseMove : () => {}}
+      onMouseLeave={!portal ? handleMouseLeave : () => {}}>
       <Magnify
         {...props}
         style={{ ...state, width, height }}
