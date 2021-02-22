@@ -224,6 +224,7 @@ export const Message = ({
   isUpdated,
   isChecked,
   onEdit,
+  onChecked,
   onDelete,
   onLink
 }) => {
@@ -235,7 +236,11 @@ export const Message = ({
 
   const handleToggleEdit = () => setEdit((prev) => !prev)
 
-  const handleChecked = (e) => setChecked(e.target.checked)
+  const handleChecked = (e) => {
+    const value = e.target.checked
+    if (onChecked) onChecked(value)
+    setChecked(value)
+  }
 
   const handleApplyChanges = () => {
     const value = textRef?.current?.value
@@ -306,7 +311,7 @@ export const Message = ({
                   </Button>
                 </Tooltip>
                 <Tooltip text={'Отметить сообщение'} self>
-                  <Checkbox defaultValue={isChecked} onChange={handleChecked} />
+                  <Checkbox checked={checked} onChange={handleChecked} />
                 </Tooltip>
               </React.Fragment>
             ) : (

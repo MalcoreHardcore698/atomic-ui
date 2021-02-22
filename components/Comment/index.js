@@ -141,15 +141,17 @@ export const Comment = ({
   compact,
   isLiked: initialLiked,
   isUpdated,
+  isChecked,
   onLink,
   onReply,
+  onChecked,
   onShowLikes,
   onDelete,
   onEdit,
   onLike
 }) => {
   const [updatedAt, setUpdatedAt] = useState(isUpdated ? time : null)
-  const [checked, setChecked] = useState(false)
+  const [checked, setChecked] = useState(isChecked)
   const [count, setCount] = useState(likes)
   const [isEdit, setEdit] = useState(false)
   const [isLiked, setLiked] = useState(initialLiked)
@@ -170,7 +172,11 @@ export const Comment = ({
 
   const handleToggleEdit = () => setEdit((prev) => !prev)
 
-  const handleChecked = (e) => setChecked(e.target.checked)
+  const handleChecked = (e) => {
+    const value = e.target.checked
+    if (onChecked) onChecked(value)
+    setChecked(value)
+  }
 
   const handleApplyChanges = () => {
     const value = commentRef?.current?.value
@@ -204,17 +210,22 @@ export const Comment = ({
             {!isEdit ? (
               <React.Fragment>
                 <Tooltip text={'Удалить комментарий'}>
-                  <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={onDelete}>
+                  <Button
+                    kind={'icon'}
+                    size={'xs'}
+                    disabled={checked}
+                    appearance={'red'}
+                    onClick={onDelete}>
                     <Icon icon={'delete'} size={'xs'} stroke={'white'} />
                   </Button>
                 </Tooltip>
                 <Tooltip text={'Редактировать комментарий'}>
-                  <Button kind={'icon'} size={'xs'} onClick={handleToggleEdit}>
+                  <Button kind={'icon'} size={'xs'} disabled={checked} onClick={handleToggleEdit}>
                     <Icon icon={'edit'} size={'xs'} stroke={'white'} />
                   </Button>
                 </Tooltip>
                 <Tooltip text={'Отметить комментарий'} self>
-                  <Checkbox onChange={handleChecked} />
+                  <Checkbox checked={checked} onChange={handleChecked} />
                 </Tooltip>
               </React.Fragment>
             ) : (
@@ -223,13 +234,19 @@ export const Comment = ({
                   <Button
                     kind={'icon'}
                     size={'xs'}
+                    disabled={checked}
                     appearance={'green'}
                     onClick={handleApplyChanges}>
                     <Icon icon={'check'} size={'xs'} stroke={'white'} />
                   </Button>
                 </Tooltip>
                 <Tooltip text={'Отменить изменения'} self>
-                  <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={handleToggleEdit}>
+                  <Button
+                    kind={'icon'}
+                    size={'xs'}
+                    disabled={checked}
+                    appearance={'red'}
+                    onClick={handleToggleEdit}>
                     <Icon icon={'closeSquare'} size={'xs'} stroke={'white'} />
                   </Button>
                 </Tooltip>
