@@ -25,8 +25,8 @@ export const Navigation = styled(Row)`
 `
 
 export const Screenshot = ({ index, screenshot, screenshots, className, style, onClick }) => {
-  const previousId = screenshots[index - 1]?.id || ''
-  const nextId = screenshots[index + 1]?.id || ''
+  const previousId = screenshots[index - 1]?.id ?? ''
+  const nextId = screenshots[index + 1]?.id ?? ''
 
   return (
     <Wrap className={className} style={style}>

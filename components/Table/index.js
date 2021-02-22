@@ -35,7 +35,15 @@ export const Headers = styled(Switch)`
     `}
 `
 
-export const Track = styled(Row)``
+export const Track = styled(Row)`
+  transition: opacity 150ms ease;
+
+  ${({ checked }) =>
+    checked &&
+    css`
+      opacity: 0.45;
+    `}
+`
 
 export const Content = styled(Row)`
   padding: 5px 15px;
@@ -157,6 +165,13 @@ export const Table = ({
   onDelete,
   onEdit
 }) => {
+  const [documents, setDocuments] = useState(
+    (data || []).map((item) => ({
+      ...item,
+      id: v4(),
+      checked: false
+    }))
+  )
   const defaultWidth = `${Math.floor(100 / template.length)}%`
   /* eslint-disable-next-line */
   const [headers, setHeaders] = useState(
@@ -170,6 +185,19 @@ export const Table = ({
   )
   /* eslint-disable-next-line */
   const [header, setHeader] = useState(headers[0] || null)
+
+  const handleChecked = (document) => {
+    setDocuments((prev) =>
+      prev.map((item) =>
+        item.id === document.id
+          ? {
+              ...document,
+              checked: !item.checked
+            }
+          : item
+      )
+    )
+  }
 
   return (
     <Wrap className={className} style={style}>
@@ -201,16 +229,16 @@ export const Table = ({
         </Popper>
       </Manage>
 
-      {data.map((item, index) => (
-        <Track key={index}>
+      {documents.map((document, index) => (
+        <Track key={index} checked={document.checked}>
           <Content appearance={appearance}>
             <CheckboxTooltip text={'Отметить документ'} self>
-              {onChecked && <Checkbox size={'s'} />}
+              {onChecked && <Checkbox size={'s'} onChange={() => handleChecked(document)} />}
             </CheckboxTooltip>
-            <Container onClick={() => onClick(item)}>
+            <Container onClick={() => onClick(document)}>
               {template.map((cell, index) =>
                 headers[index].visible
-                  ? React.cloneElement(cell.content(item), {
+                  ? React.cloneElement(cell.content(document), {
                       key: index,
                       label: cell.header,
                       width: cell?.width || defaultWidth
@@ -224,7 +252,7 @@ export const Table = ({
             <Actions appearance={appearance}>
               {onEdit && (
                 <Tooltip text={'Редактирование'} place={'left'}>
-                  <Button size={'xs'} kind={'icon'} onClick={() => onEdit(item)}>
+                  <Button size={'xs'} kind={'icon'} onClick={() => onEdit(document)}>
                     <Icon icon={'edit'} size={'xs'} stroke={'white'} />
                   </Button>
                 </Tooltip>
@@ -235,7 +263,7 @@ export const Table = ({
                     size={'xs'}
                     kind={'icon'}
                     appearance={'red'}
-                    onClick={() => onDelete(item)}>
+                    onClick={() => onDelete(document)}>
                     <Icon icon={'delete'} size={'xs'} stroke={'white'} />
                   </Button>
                 </Tooltip>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import styled, { css } from 'styled-components'
 
 export const Wrap = styled.p`
@@ -13,7 +13,11 @@ export const Wrap = styled.p`
     `}
 `
 
-export const Text = ({ children, ...props }) => <Wrap {...props}>{children}</Wrap>
+export const Text = forwardRef(({ children, ...props }, ref) => (
+  <Wrap ref={ref} {...props}>
+    {children}
+  </Wrap>
+))
 
 Text.defaultProps = {
   size: 'm'

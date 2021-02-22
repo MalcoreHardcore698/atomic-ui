@@ -39,7 +39,7 @@ import Category from '../../assets/images/icons/category.svg'
 import Chart from '../../assets/images/icons/chart.svg'
 import Check from '../../assets/images/icons/check.svg'
 import Chat from '../../assets/images/icons/chat.svg'
-import CloseSqhare from '../../assets/images/icons/close_square.svg'
+import CloseSquare from '../../assets/images/icons/close_square.svg'
 import Danger from '../../assets/images/icons/danger.svg'
 import Delete from '../../assets/images/icons/delete.svg'
 import Discount from '../../assets/images/icons/discount.svg'
@@ -149,7 +149,7 @@ export const library = {
   chart: Chart,
   check: Check,
   chat: Chat,
-  closeSqhare: CloseSqhare,
+  closeSquare: CloseSquare,
   danger: Danger,
   delete: Delete,
   discount: Discount,
