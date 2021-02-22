@@ -3,11 +3,19 @@ import { storiesOf } from '@storybook/react'
 
 import BrandAvatarIMG from '../../assets/images/brand.png'
 import CooperAvatarIMG from '../../assets/images/cooper.png'
+import TailPartIMG from '../../assets/images/parts/tail.svg'
+import TailPartOwnerIMG from '../../assets/images/parts/tail-owner.svg'
 import Column from '../Column'
 import Message from '.'
 
+const tails = {
+  default: TailPartIMG,
+  owner: TailPartOwnerIMG
+}
+
 const messages = [
   {
+    tails,
     avatar: BrandAvatarIMG,
     name: 'Брэнд',
     text:
@@ -15,6 +23,7 @@ const messages = [
     time: 1613195310903
   },
   {
+    tails,
     avatar: CooperAvatarIMG,
     name: 'Купер',
     side: 'owner',
@@ -22,12 +31,14 @@ const messages = [
     time: 1613195350903
   },
   {
+    tails,
     avatar: BrandAvatarIMG,
     name: 'Брэнд',
     text: 'Мы любим людей, которые умерли. Какая в этом общественная польза?',
     time: 1613195350903
   },
   {
+    tails,
     avatar: CooperAvatarIMG,
     name: 'Купер',
     text: 'Никакой...',
@@ -35,6 +46,7 @@ const messages = [
     time: 1613195350903
   },
   {
+    tails,
     avatar: BrandAvatarIMG,
     name: 'Брэнд',
     text:
@@ -59,13 +71,7 @@ storiesOf('Components API/Data Display/Message', module)
     return (
       <Column style={{ width: 420 }}>
         {messages.map((message, index) => (
-          <Message
-            key={index}
-            {...message}
-            onEdit={onNoop}
-            onDelete={onNoop}
-            compact
-          />
+          <Message key={index} {...message} onEdit={onNoop} onDelete={onNoop} compact />
         ))}
       </Column>
     )

@@ -10,8 +10,6 @@ import Button from '../Button'
 import Tooltip from '../Tooltip'
 import DateText from '../DateText'
 import Checkbox from '../Checkbox'
-import TailPartIMG from '../../assets/images/parts/tail.svg'
-import TailPartOwnerIMG from '../../assets/images/parts/tail-owner.svg'
 import TextArea from '../TextArea'
 
 export const dispatchDateStyles = css`
@@ -163,18 +161,18 @@ export const OpinionTail = styled.span`
   width: 25px;
   height: 20px;
 
-  ${({ side }) =>
+  ${({ side, tails }) =>
     side === 'observer' &&
     css`
       left: -12px;
-      background-image: url('${TailPartIMG}');
+      background-image: url('${tails.default}');
     `}
 
-  ${({ side }) =>
+  ${({ side, tails }) =>
     side === 'owner' &&
     css`
       right: -12px;
-      background-image: url('${TailPartOwnerIMG}');
+      background-image: url('${tails.owner}');
       transform: scaleX(-1);
     `}
 `
@@ -219,6 +217,7 @@ export const Message = ({
   name,
   text,
   time,
+  tails,
   style,
   compact,
   className,
@@ -256,7 +255,7 @@ export const Message = ({
           {compact && <MiniAvatar side={side} src={avatar} onClick={onLink} />}
           {name}
         </OpinionName>
-        {!compact && <OpinionTail side={side} />}
+        {!compact && <OpinionTail side={side} tails={tails} />}
 
         {isEdit ? (
           <OpinionTextArea ref={textRef} defaultValue={message} appearance={'ghost'} />
