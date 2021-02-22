@@ -222,12 +222,13 @@ export const Message = ({
   compact,
   className,
   isUpdated,
+  isChecked,
   onEdit,
   onDelete,
   onLink
 }) => {
   const [updatedAt, setUpdatedAt] = useState(isUpdated ? time : null)
-  const [checked, setChecked] = useState(false)
+  const [checked, setChecked] = useState(isChecked)
   const [isEdit, setEdit] = useState(false)
   const [message, setMessage] = useState(text)
   const textRef = useRef(null)
@@ -290,17 +291,22 @@ export const Message = ({
             {!isEdit ? (
               <React.Fragment>
                 <Tooltip text={'Удалить сообщение'}>
-                  <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={onDelete}>
+                  <Button
+                    kind={'icon'}
+                    size={'xs'}
+                    disabled={checked}
+                    appearance={'red'}
+                    onClick={onDelete}>
                     <Icon icon={'delete'} size={'xs'} stroke={'white'} />
                   </Button>
                 </Tooltip>
                 <Tooltip text={'Редактировать сообщение'}>
-                  <Button kind={'icon'} size={'xs'} onClick={handleToggleEdit}>
+                  <Button kind={'icon'} size={'xs'} disabled={checked} onClick={handleToggleEdit}>
                     <Icon icon={'edit'} size={'xs'} stroke={'white'} />
                   </Button>
                 </Tooltip>
                 <Tooltip text={'Отметить сообщение'} self>
-                  <Checkbox onChange={handleChecked} />
+                  <Checkbox defaultValue={isChecked} onChange={handleChecked} />
                 </Tooltip>
               </React.Fragment>
             ) : (
@@ -309,13 +315,19 @@ export const Message = ({
                   <Button
                     kind={'icon'}
                     size={'xs'}
+                    disabled={checked}
                     appearance={'green'}
                     onClick={handleApplyChanges}>
                     <Icon icon={'check'} size={'xs'} stroke={'white'} />
                   </Button>
                 </Tooltip>
                 <Tooltip text={'Отменить изменения'} self>
-                  <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={handleToggleEdit}>
+                  <Button
+                    kind={'icon'}
+                    size={'xs'}
+                    disabled={checked}
+                    appearance={'red'}
+                    onClick={handleToggleEdit}>
                     <Icon icon={'closeSquare'} size={'xs'} stroke={'white'} />
                   </Button>
                 </Tooltip>
