@@ -270,9 +270,11 @@ export const Comment = ({
               <DispatchTime text={time} />
             )}
 
-            <ReplyButton appearance={'clear'} onClick={onReply}>
-              Ответить
-            </ReplyButton>
+            {onReply && (
+              <ReplyButton appearance={'clear'} onClick={onReply}>
+                Ответить
+              </ReplyButton>
+            )}
           </Meta>
 
           <Likes>
