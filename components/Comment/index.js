@@ -275,25 +275,25 @@ export const Comment = ({
             </ReplyButton>
           </Meta>
 
-          {likes && likes > 0 && (
-            <Likes>
+          <Likes>
+            {count > 0 && (
               <Tooltip text={`${count} ${textLikes} это нравится`}>
                 <LikesButton type={'button'} onClick={onShowLikes} appearance={'clear'} size={'xs'}>
                   <span style={{ color }}>{count}</span>
                 </LikesButton>
               </Tooltip>
-              <Tooltip text={'Мне нравится'}>
-                <LikeButton type={'button'} onClick={onClick} appearance={'clear'} size={'xs'}>
-                  <Icon
-                    icon={'heart'}
-                    size={'xs'}
-                    stroke={color}
-                    fill={isLiked ? 'var(--default-color-accent)' : 'none'}
-                  />
-                </LikeButton>
-              </Tooltip>
-            </Likes>
-          )}
+            )}
+            <Tooltip text={'Мне нравится'}>
+              <LikeButton type={'button'} onClick={onClick} appearance={'clear'} size={'xs'}>
+                <Icon
+                  icon={'heart'}
+                  size={'xs'}
+                  stroke={color}
+                  fill={isLiked ? 'var(--default-color-accent)' : 'none'}
+                />
+              </LikeButton>
+            </Tooltip>
+          </Likes>
         </Line>
       </Content>
     </Wrap>
