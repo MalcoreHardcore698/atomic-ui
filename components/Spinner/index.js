@@ -1,4 +1,4 @@
 import React from 'react'
-import './Spinner.css'
+import styles from './Spinner.css'
 
-export default () => <div className={'spinner'} />
+export default () => <div className={styles} />
