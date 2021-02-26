@@ -35,4 +35,6 @@ export const styles = {
   }
 }
 
-export default () => <div style={styles} />
+export const Spinner = () => <div style={styles} />
+
+export default Spinner
