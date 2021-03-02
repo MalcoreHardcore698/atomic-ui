@@ -1,7 +1,14 @@
 @import './reset.css';
 @import './animations.css';
 
+html {
+  height: 100vh;
+  overflow: hidden;
+}
+
 body {
+  height: 100%;
+  overflow-y: auto;
   font-family: 'Poppins', 'Montserrat', 'Roboto', 'Arial', sans-serif;
   font-weight: 400;
   font-size: .875rem;
