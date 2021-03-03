@@ -8,7 +8,9 @@ import Chip from '../Chip'
 import Rating from '../Rating'
 import Tooltip from '../Tooltip'
 
-export const Wrap = styled(Row)``
+export const Wrap = styled(Row)`
+  flex-wrap: wrap;
+`
 
 export const DateRow = styled(Row)`
   position: relative;
