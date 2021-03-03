@@ -14,9 +14,10 @@ export const Wrap = styled(Column)`
 `
 
 export const Content = styled(Image)`
-  border-radius: var(--surface-border-radius);
+  width: 100%;
   max-height: 650px;
   object-fit: cover;
+  border-radius: var(--surface-border-radius);
 `
 
 export const Navigation = styled(Row)`
