@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 export const Wrap = styled.figure`
   position: relative;
@@ -32,7 +33,7 @@ export const Magnify = styled.div`
     `}
 `
 
-export const Source = styled.img`
+export const Source = styled(LazyLoadImage)`
   overflow: hidden;
   border-radius: var(--surface-border-radius);
 
@@ -104,11 +105,12 @@ export const Image = ({
         onMouseMove={portal && handleMouseMove}
         onMouseLeave={portal && handleMouseLeave}
         style={{ width, height, opacity }}
+        effect={'opacity'}
         magnify={magnify}
       />
     </Wrap>
   ) : (
-    <Source {...props} src={src} style={{ width, height }} />
+    <Source {...props} src={src} effect={'opacity'} style={{ width, height }} />
   )
 }
 
