@@ -1,9 +1,15 @@
 import React, { Suspense } from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css, createGlobalStyle } from 'styled-components'
 import Scrollbars from 'react-custom-scrollbars'
 
 import Transition from '../Transition'
 import Icon from '../Icon'
+
+const GlobalStyle = createGlobalStyle`
+  html, body {
+    overflow: hidden;
+  }
+`
 
 export const Overlay = styled.div`
   position: absolute;
@@ -219,6 +225,8 @@ export const Drawer = ({ children, side, half, isOpen, onBack, ...props }) => (
     appear
     {...props}>
     <Wrapper {...props}>
+      <GlobalStyle />
+
       <Overlay onClick={onBack} />
 
       <Side half={half}>
