@@ -1,15 +1,10 @@
 import React, { Suspense } from 'react'
-import styled, { css, createGlobalStyle } from 'styled-components'
+import styled, { css } from 'styled-components'
 import Scrollbars from 'react-custom-scrollbars'
 
 import Transition from '../Transition'
+import Spinner from '../Spinner'
 import Icon from '../Icon'
-
-const GlobalStyle = createGlobalStyle`
-  html, body {
-    overflow: hidden;
-  }
-`
 
 export const Overlay = styled.div`
   position: absolute;
@@ -212,6 +207,16 @@ export const Wrapper = styled.div`
   }
 `
 
+export const Loader = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+`
+
 export const Drawer = ({ children, side, half, isOpen, onBack, ...props }) => (
   <Transition
     in={isOpen}
@@ -225,8 +230,6 @@ export const Drawer = ({ children, side, half, isOpen, onBack, ...props }) => (
     appear
     {...props}>
     <Wrapper {...props}>
-      <GlobalStyle />
-
       <Overlay onClick={onBack} />
 
       <Side half={half}>
@@ -234,7 +237,14 @@ export const Drawer = ({ children, side, half, isOpen, onBack, ...props }) => (
 
         <Scrollbars>
           <Content>
-            <Suspense fallback={<div>Загрузка...</div>}>{children}</Suspense>
+            <Suspense
+              fallback={
+                <Loader>
+                  <Spinner />
+                </Loader>
+              }>
+              {children}
+            </Suspense>
           </Content>
         </Scrollbars>
       </Side>

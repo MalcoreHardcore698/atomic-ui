@@ -26,6 +26,7 @@
     "@tinymce/tinymce-react": "^3.9.0",
     "browser-image-compression": "^1.0.14",
     "react": "^16.14.0",
+    "react-charts": "^2.0.0-beta.7",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.14.0",
     "react-dropzone": "^11.2.4",

@@ -10,6 +10,7 @@ import ArrowDown2 from '../../assets/images/icons/arrow_down_2.svg'
 import ArrowDown3 from '../../assets/images/icons/arrow_down_3.svg'
 import ArrowDownCircle from '../../assets/images/icons/arrow_down_circle.svg'
 import ArrowDownSquare from '../../assets/images/icons/arrow_down_square.svg'
+import ArrowDownCarret from '../../assets/images/icons/arrow_down_carret.svg'
 import ArrowLeft from '../../assets/images/icons/arrow_left.svg'
 import ArrowLeft2 from '../../assets/images/icons/arrow_left_2.svg'
 import ArrowLeft3 from '../../assets/images/icons/arrow_left_3.svg'
@@ -25,6 +26,7 @@ import ArrowUp2 from '../../assets/images/icons/arrow_up_2.svg'
 import ArrowUp3 from '../../assets/images/icons/arrow_up_3.svg'
 import ArrowUpCircle from '../../assets/images/icons/arrow_up_circle.svg'
 import ArrowUpSquare from '../../assets/images/icons/arrow_up_square.svg'
+import ArrowUpCarret from '../../assets/images/icons/arrow_up_carret.svg'
 import Bag from '../../assets/images/icons/bag.svg'
 import Bag2 from '../../assets/images/icons/bag_2.svg'
 import Bookmark from '../../assets/images/icons/bookmark.svg'
@@ -120,6 +122,7 @@ export const library = {
   arrowDown3: ArrowDown3,
   arrowDownCircle: ArrowDownCircle,
   arrowDownSquare: ArrowDownSquare,
+  arrowDownCarret: ArrowDownCarret,
   arrowLeft: ArrowLeft,
   arrowLeft2: ArrowLeft2,
   arrowLeft3: ArrowLeft3,
@@ -135,6 +138,7 @@ export const library = {
   arrowUp3: ArrowUp3,
   arrowUpCircle: ArrowUpCircle,
   arrowUpSquare: ArrowUpSquare,
+  arrowUpCarret: ArrowUpCarret,
   bag: Bag,
   bag2: Bag2,
   bookmark: Bookmark,
