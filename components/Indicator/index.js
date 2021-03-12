@@ -85,14 +85,14 @@ export const Movement = styled(Row)`
 export const Indicator = ({ label, value, movement, positive, negative, appearance, ...props }) => (
   <Wrap {...props} appearance={appearance}>
     {label && <Label>{label}</Label>}
-    {value && movement && (
+    {(value || movement) && (
       <Value>
-        {value && (
+        {value ? (
           <Text>
             <CountUp end={value} duration={2.75} />
           </Text>
-        )}
-        {movement && (
+        ) : null}
+        {movement ? (
           <Movement positive={positive} negative={negative}>
             {positive && !negative && (
               <Icon icon={'arrowUpCarret'} fill={'var(--default-color-green)'} />
@@ -104,7 +104,7 @@ export const Indicator = ({ label, value, movement, positive, negative, appearan
               <CountUp end={movement} duration={3} />
             </Text>
           </Movement>
-        )}
+        ) : null}
       </Value>
     )}
   </Wrap>
