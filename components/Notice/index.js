@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import Row from '../Row'
 import Column from '../Column'
@@ -11,6 +11,17 @@ import Meta from '../Meta'
 
 export const Wrap = styled(Row)`
   align-items: center;
+  transition: opacity 150ms ease;
+
+  ${({ onClick }) =>
+    onClick &&
+    css`
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.65;
+      }
+    `}
 `
 
 export const CircleIcon = styled(Icon)`
@@ -38,8 +49,8 @@ export const Header = styled(Row)`
   }
 `
 
-export const Notice = ({ img, icon, title, message, date }) => (
-  <Wrap>
+export const Notice = ({ img, icon, title, message, date, onClick }) => (
+  <Wrap onClick={onClick}>
     {img && !icon && <Avatar src={img} />}
     {!img && icon && <CircleIcon icon={icon} stroke={'white'} />}
 
