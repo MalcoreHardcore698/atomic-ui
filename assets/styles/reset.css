@@ -87,7 +87,6 @@ summary {
 }
 html {
   box-sizing: border-box;
-  overflow-y: scroll;
   cursor: default;
 }
 
