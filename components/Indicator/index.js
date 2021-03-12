@@ -5,6 +5,7 @@ import Row from '../Row'
 import Column from '../Column'
 import Text from '../Text'
 import Icon from '../Icon'
+import CountUp from 'react-countup'
 
 export const Wrap = styled(Column)`
   display: flex;
@@ -58,6 +59,12 @@ export const Movement = styled(Row)`
     transform: scale(1.85);
   }
 
+  span {
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+  }
+
   p {
     display: flex;
     align-items: flex-end;
@@ -80,7 +87,11 @@ export const Indicator = ({ label, value, movement, positive, negative, appearan
     {label && <Label>{label}</Label>}
     {value && movement && (
       <Value>
-        {value && <Text>{value}</Text>}
+        {value && (
+          <Text>
+            <CountUp end={value} duration={2.75} />
+          </Text>
+        )}
         {movement && (
           <Movement positive={positive} negative={negative}>
             {positive && !negative && (
@@ -89,7 +100,9 @@ export const Indicator = ({ label, value, movement, positive, negative, appearan
             {!positive && negative && (
               <Icon icon={'arrowDownCarret'} fill={'var(--default-color-red)'} />
             )}
-            <Text>{movement}</Text>
+            <Text>
+              <CountUp end={movement} duration={3} />
+            </Text>
           </Movement>
         )}
       </Value>
