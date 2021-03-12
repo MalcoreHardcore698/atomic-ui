@@ -6,6 +6,7 @@ body {
   font-weight: 400;
   font-size: .875rem;
   background: var(--main-background);
+  overflow-x: hidden;
 }
 
 @keyframes load {

@@ -53,7 +53,7 @@ export const Chart = ({ data, ...props }) => {
         data={data}
         tooltip={(value) => (
           <Tooltip>
-            {value.point.data.x} | {value.point.data.y}
+            {value.point.serieId}: {value.point.data.y}
           </Tooltip>
         )}
         margin={{ top: 20, right: 20, bottom: 30, left: 40 }}
