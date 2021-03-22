@@ -12,6 +12,16 @@ storiesOf('Components API/Data Display/Difinition', module).add('Default', () =>
 
       <Difinition icon={'activity'} label={'Активность'} text={'478'} />
 
+      <Difinition
+        icon={'paper'}
+        label={'12 проектов'}
+        text={'Горные дела'}
+        onLink={() => {}}
+        revert
+      />
+
+      <Difinition icon={'paper'} label={'4 проекта'} text={'Неактивная папка'} revert disabled />
+
       <Difinition icon={'notification'} text={'Уведомления'} />
 
       <Difinition label={'Компания'} text={'ПАО «Газпром»'} />

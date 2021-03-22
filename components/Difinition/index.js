@@ -45,6 +45,16 @@ export const RoundedIcon = styled(Icon)`
   background: var(--default-color-${({ color }) => color || 'accent'}-dim);
   border-radius: var(--surface-border-radius);
 
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      background: var(--ghost-color-background);
+
+      svg path {
+        stroke: var(--ghost-color-text);
+      }
+    `}
+
   @media only screen and (max-width: 480px) {
     width: var(--input-height-s);
     height: var(--input-height-s);
@@ -66,6 +76,12 @@ export const Label = styled(Text)`
   overflow: hidden;
   text-overflow: ellipsis;
 
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      color: var(--ghost-color-text);
+    `}
+
   ${({ stretch }) =>
     stretch &&
     css`
@@ -82,7 +98,9 @@ export const Value = styled(Title)`
   }
 `
 
-export const getValue = (label, text) => {
+export const getValue = (label, text, disabled) => {
+  const disabledStyle = disabled ? { color: 'var(--ghost-color-text)' } : {}
+
   if (Array.isArray(text)) {
     const slicedFactor = 3
     return (
@@ -113,10 +131,14 @@ export const getValue = (label, text) => {
   // eslint-disable-next-line valid-typeof
   if (typeof Text === 'funciton') {
     const Text = text
-    return <Text />
+    return <Text style={disabledStyle} />
   }
 
-  return <Value tag={!label ? 'h2' : 'h4'}>{text}</Value>
+  return (
+    <Value style={disabledStyle} tag={!label ? 'h2' : 'h4'}>
+      {text}
+    </Value>
+  )
 }
 
 export const Difinition = ({
@@ -129,25 +151,50 @@ export const Difinition = ({
   className,
   style,
   stretch,
+  disabled,
+  revert,
   onLink
-}) => (
-  <Wrap className={className} style={style} clickable={!!onLink} onClick={() => onLink && onLink()}>
-    {img && !icon && <Image src={img} alt={'Avatar'} />}
-    {!img && icon && (
-      <RoundedIcon icon={icon} color={color} stroke={`var(--default-color-${color || 'accent'})`} />
-    )}
-    <Content>
-      {label && <Label stretch={stretch}>{label}</Label>}
+}) => {
+  const renderLabel = () =>
+    label && (
+      <Label stretch={stretch} disabled={disabled}>
+        {label}
+      </Label>
+    )
 
-      {tooltip ? (
-        <Tooltip place={'top'} text={tooltip}>
-          <Row>{getValue(label, text)}</Row>
-        </Tooltip>
-      ) : (
-        <Row>{getValue(label, text)}</Row>
+  const renderText = () =>
+    tooltip ? (
+      <Tooltip place={'top'} text={tooltip}>
+        <Row>{getValue(label, text, disabled)}</Row>
+      </Tooltip>
+    ) : (
+      <Row>{getValue(label, text, disabled)}</Row>
+    )
+
+  return (
+    <Wrap
+      className={className}
+      style={style}
+      clickable={!disabled && !!onLink}
+      onClick={() => !disabled && onLink && onLink()}>
+      {img && !icon && <Image src={img} alt={'Avatar'} />}
+      {!img && icon && (
+        <RoundedIcon
+          icon={icon}
+          color={color}
+          disabled={disabled}
+          stroke={`var(--default-color-${color || 'accent'})`}
+        />
       )}
-    </Content>
-  </Wrap>
-)
+      <Content>
+        {!revert && renderLabel()}
+        {!revert && renderText()}
+
+        {revert && renderText()}
+        {revert && renderLabel()}
+      </Content>
+    </Wrap>
+  )
+}
 
 export default Difinition
