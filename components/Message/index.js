@@ -26,11 +26,35 @@ export const Wrap = styled.div`
   margin: 0;
   transition: opacity 150ms ease;
 
+  & > span {
+    grid-area: avatar;
+    align-self: end;
+    justify-self: start;
+    cursor: pointer;
+    transition: opacity 150ms ease;
+  }
+
+  ${({ onClick }) =>
+    onClick &&
+    css`
+      & > span {
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.65;
+        }
+      }
+    `}
+
   ${({ side }) =>
     side === 'owner' &&
     css`
       grid-template-columns: 1fr 64px;
       grid-template-areas: 'opinion avatar';
+
+      & > span {
+        justify-self: end;
+      }
     `}
 
   ${({ compact }) =>
