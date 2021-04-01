@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react'
+import AvatarEditor from 'react-avatar-editor'
 import styled, { css } from 'styled-components'
 import imageCompression from 'browser-image-compression'
 import { useDropzone } from 'react-dropzone'
@@ -6,6 +7,7 @@ import { v4 } from 'uuid'
 
 import Image from '../Image'
 import Text from '../Text'
+import Button from '../Button'
 import Grid from '../Grid'
 import Tooltip from '../Tooltip'
 import Icon from '../Icon'
@@ -93,6 +95,34 @@ export const Area = styled.div`
   }
 `
 
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left:0;
+  z-index: 999;
+  padding: 1rem;
+  background: #fff;
+  width: fit-content;
+  border: 1px solid rgba(0,0,0,15%);
+`
+
+const MiddleOriented = styled.div`
+  margin: 0 auto;
+  text-align: center;
+`
+
+const ActionsLayout = styled.div`
+  input {
+    width: 100%;
+  }
+`
+
+const ButtonsLayout = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem
+`
+
 export const PreviewList = styled(Grid)`
   img {
     height: 128px;
@@ -131,6 +161,7 @@ export async function compressedUpload(file, maxWidthOrHeight = 1366) {
 export const Dropzone = ({
   style,
   accept,
+  avatar,
   className,
   defaultValue,
   placeholder,
@@ -141,10 +172,17 @@ export const Dropzone = ({
 }) => {
   const [error, setError] = useState(false)
   const [images, setImages] = useState([])
+  const [initScale, setScale] = useState([0.8])
+  const [avatarState, setAvatar] = useState([])
+  const [avatarHistory, setHistory] = useState([])
 
   const onDrop = useCallback(
     async (droppedFiles) => {
       setError(false)
+
+      if (avatar) {
+        setAvatar(true)
+      }
 
       if (droppedFiles.length > maxFiles || droppedFiles.length === 0) {
         setError(true)
@@ -194,12 +232,45 @@ export const Dropzone = ({
     [setImages]
   )
 
+  let imageScaled = null;
+  const handleScale = e => {
+    const scale = parseFloat(e.target.value)
+    setScale(scale)
+  }
+  
+  const clearImages = () => {
+    setAvatar(false)
+    if (!avatarHistory) {
+      setImages('');
+    } else {
+      setImages(avatarHistory)
+    }
+  }
+
+  const onClickSave = () => {
+    if (imageScaled) {
+      const canvasScaled = imageScaled.getImageScaledToCanvas()
+      images.blob = canvasScaled.toDataURL("image/png")
+      setImages(images);
+      setAvatar(false)
+      setHistory(images)
+    }
+  }
+
+  const setEditorRef = (editor) => imageScaled = editor
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     multiple,
-    accept
+    avatar,
+    accept,
+    initScale,
+    handleScale,
+    clearImages,
+    onClickSave,
+    setEditorRef
   })
-
+  
   return (
     <Wrap className={className} style={style}>
       {tooltip && (
@@ -211,6 +282,38 @@ export const Dropzone = ({
           />
         </InfoTooltip>
       )}
+
+      {avatarState && images.blob  && (
+            <Overlay>
+              <MiddleOriented>
+                <AvatarEditor
+                  image={images.blob || defaultValue?.path || defaultValue?.blob}
+                  width={220}
+                  height={256}
+                  border={10}
+                  color={[255, 255, 255, 0.6]} 
+                  scale={parseFloat(initScale)}
+                  rotate={0}
+                  ref={setEditorRef}
+                />
+              </MiddleOriented>
+              <ActionsLayout>
+                <input
+                  name="scale"
+                  type="range"
+                  onChange={handleScale}
+                  min="0.8"
+                  max="2"
+                  step="0.01"
+                  defaultValue="0.8"
+                />
+                <ButtonsLayout>
+                  <Button appearance={'default'} onClick={onClickSave}>Сохранить</Button>
+                  <Button appearance={'outlined'} onClick={clearImages}>Отмена</Button>
+                </ButtonsLayout>
+              </ActionsLayout>
+            </Overlay>
+          )}
 
       <Container className={'dropzone-container'} {...getRootProps()} error={error}>
         <input accept={accept} {...getInputProps()} hidden />
@@ -230,13 +333,14 @@ export const Dropzone = ({
                 ))}
               </PreviewList>
             )}
-
+          
           {!multiple && (!Array.isArray(images) || defaultValue) && (
             <Preview
               src={images.blob || defaultValue?.path || defaultValue?.blob}
               alt={defaultValue?.name}
             />
           )}
+          
         </Area>
       </Container>
     </Wrap>
