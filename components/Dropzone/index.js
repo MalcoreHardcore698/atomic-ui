@@ -98,12 +98,12 @@ export const Area = styled.div`
 const Overlay = styled.div`
   position: absolute;
   top: 0;
-  left:0;
+  left: 0;
   z-index: 999;
   padding: 1rem;
   background: #fff;
   width: fit-content;
-  border: 1px solid rgba(0,0,0,15%);
+  border: 1px solid rgba(0, 0, 0, 15%);
 `
 
 const MiddleOriented = styled.div`
@@ -120,7 +120,7 @@ const ActionsLayout = styled.div`
 const ButtonsLayout = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 0.5rem
+  margin-top: 0.5rem;
 `
 
 export const PreviewList = styled(Grid)`
@@ -232,16 +232,16 @@ export const Dropzone = ({
     [setImages]
   )
 
-  let imageScaled = null;
-  const handleScale = e => {
+  let imageScaled = null
+  const handleScale = (e) => {
     const scale = parseFloat(e.target.value)
     setScale(scale)
   }
-  
+
   const clearImages = () => {
     setAvatar(false)
     if (!avatarHistory) {
-      setImages('');
+      setImages('')
     } else {
       setImages(avatarHistory)
     }
@@ -250,14 +250,14 @@ export const Dropzone = ({
   const onClickSave = () => {
     if (imageScaled) {
       const canvasScaled = imageScaled.getImageScaledToCanvas()
-      images.blob = canvasScaled.toDataURL("image/png")
-      setImages(images);
+      images.blob = canvasScaled.toDataURL('image/png')
+      setImages(images)
       setAvatar(false)
       setHistory(images)
     }
   }
 
-  const setEditorRef = (editor) => imageScaled = editor
+  const setEditorRef = (editor) => (imageScaled = editor)
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -270,7 +270,7 @@ export const Dropzone = ({
     onClickSave,
     setEditorRef
   })
-  
+
   return (
     <Wrap className={className} style={style}>
       {tooltip && (
@@ -283,37 +283,41 @@ export const Dropzone = ({
         </InfoTooltip>
       )}
 
-      {avatarState && images.blob  && (
-            <Overlay>
-              <MiddleOriented>
-                <AvatarEditor
-                  image={images.blob || defaultValue?.path || defaultValue?.blob}
-                  width={220}
-                  height={256}
-                  border={10}
-                  color={[255, 255, 255, 0.6]} 
-                  scale={parseFloat(initScale)}
-                  rotate={0}
-                  ref={setEditorRef}
-                />
-              </MiddleOriented>
-              <ActionsLayout>
-                <input
-                  name="scale"
-                  type="range"
-                  onChange={handleScale}
-                  min="0.8"
-                  max="2"
-                  step="0.01"
-                  defaultValue="0.8"
-                />
-                <ButtonsLayout>
-                  <Button appearance={'default'} onClick={onClickSave}>Сохранить</Button>
-                  <Button appearance={'outlined'} onClick={clearImages}>Отмена</Button>
-                </ButtonsLayout>
-              </ActionsLayout>
-            </Overlay>
-          )}
+      {avatarState && images.blob && (
+        <Overlay>
+          <MiddleOriented>
+            <AvatarEditor
+              image={images.blob || defaultValue?.path || defaultValue?.blob}
+              width={220}
+              height={256}
+              border={10}
+              color={[255, 255, 255, 0.6]}
+              scale={parseFloat(initScale)}
+              rotate={0}
+              ref={setEditorRef}
+            />
+          </MiddleOriented>
+          <ActionsLayout>
+            <input
+              name="scale"
+              type="range"
+              onChange={handleScale}
+              min="0.8"
+              max="2"
+              step="0.01"
+              defaultValue="0.8"
+            />
+            <ButtonsLayout>
+              <Button appearance={'default'} onClick={onClickSave}>
+                Сохранить
+              </Button>
+              <Button appearance={'outlined'} onClick={clearImages}>
+                Отмена
+              </Button>
+            </ButtonsLayout>
+          </ActionsLayout>
+        </Overlay>
+      )}
 
       <Container className={'dropzone-container'} {...getRootProps()} error={error}>
         <input accept={accept} {...getInputProps()} hidden />
@@ -333,14 +337,13 @@ export const Dropzone = ({
                 ))}
               </PreviewList>
             )}
-          
+
           {!multiple && (!Array.isArray(images) || defaultValue) && (
             <Preview
               src={images.blob || defaultValue?.path || defaultValue?.blob}
               alt={defaultValue?.name}
             />
           )}
-          
         </Area>
       </Container>
     </Wrap>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import styled, { css } from 'styled-components'
 import { v4 } from 'uuid'
 
@@ -9,12 +9,15 @@ import Button from '../Button'
 import Switch from '../Switch'
 import Difinition from '../Difinition'
 import Checkbox from '../Checkbox'
-import Tooltip from '../Tooltip'
+import Tooltip, { Wrap as TooltipWrap } from '../Tooltip'
 import Popper from '../Popper'
 
 export const Wrap = styled(Column)``
 
-export const Manage = styled(Row)``
+export const Manage = styled(Row)`
+  display: grid;
+  grid-template-columns: 36px 1fr 70px;
+`
 
 export const Headers = styled(Switch)`
   ${({ width }) =>
@@ -35,6 +38,19 @@ export const Headers = styled(Switch)`
     `}
 `
 
+export const Header = styled(Row)`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+  color: #959595;
+
+  &:last-child {
+    justify-content: flex-end;
+  }
+`
+
 export const Track = styled(Row)`
   transition: opacity 150ms ease;
 
@@ -47,7 +63,7 @@ export const Track = styled(Row)`
 
 export const Content = styled(Row)`
   padding: 5px 15px;
-  width: calc(100% - 55px);
+  width: calc(100% - 85px);
 
   ${({ appearance }) =>
     appearance === 'default' &&
@@ -91,14 +107,26 @@ export const Container = styled(Row)`
 `
 
 export const Actions = styled(Column)`
+  justify-content: center;
+  align-items: center;
+  width: 70px;
   padding: 5px;
-  width: var(--input-height-m);
   grid-gap: 5px;
 
   button {
     width: 100%;
     flex-grow: 1;
   }
+
+  ${TooltipWrap} {
+    width: 100%;
+  }
+
+  ${({ horizontal }) =>
+    horizontal &&
+    css`
+      flex-direction: row;
+    `}
 
   ${({ appearance }) =>
     appearance === 'default' &&
@@ -118,6 +146,15 @@ export const Actions = styled(Column)`
       border-radius: 0;
       padding: 0;
     `}
+`
+
+export const FieldsPopper = styled(Popper)`
+  display: flex;
+  align-items: center;
+
+  & > div {
+    display: flex;
+  }
 `
 
 export const Cell = styled(Difinition)`
@@ -151,8 +188,11 @@ export const HeaderList = styled(Column)`
 
 export const CheckboxTooltip = styled(Tooltip)`
   display: flex;
+  justify-content: flex-end;
   align-items: center;
 `
+
+export const getIsAdmin = (document) => document.name?.toUpperCase() === 'ADMIN'
 
 export const Table = ({
   data,
@@ -165,76 +205,132 @@ export const Table = ({
   onDelete,
   onEdit
 }) => {
+  const [isAllChecked, setIsAllChecked] = useState(false)
   const [documents, setDocuments] = useState(
     (data || []).map((item) => ({
       ...item,
-      id: v4(),
+      id: item.id || v4(),
       checked: false
     }))
   )
+  const buttonDeleteDisabled = useMemo(() => !documents.find((item) => item.checked), [documents])
   const defaultWidth = `${Math.floor(100 / template.length)}%`
-  /* eslint-disable-next-line */
-  const [headers, setHeaders] = useState(
-    (template || []).map((item) => ({
-      value: v4(),
-      label: item.header,
-      width: item.width || defaultWidth,
-      tooltip: item.tooltip || `Сортировка по «${item.header}‎»`,
-      visible: !item.hidden
-    }))
+
+  const headers = useMemo(
+    () =>
+      (template || []).map((item) => ({
+        value: v4(),
+        label: item.header,
+        tooltip: item.tooltip || `Сортировка по «${item.header}»`,
+        visible: !item.hidden
+      })),
+    []
   )
-  /* eslint-disable-next-line */
-  const [header, setHeader] = useState(headers[0] || null)
 
   const handleChecked = (document) => {
-    setDocuments((prev) =>
-      prev.map((item) =>
-        item.id === document.id
-          ? {
-              ...document,
-              checked: !item.checked
-            }
-          : item
-      )
-    )
+    setDocuments((prev) => {
+      const isExists = (item) => item.id === document.id
+      const candidate = prev.find(isExists)
+      if (candidate) {
+        return prev.map((item) =>
+          isExists(item)
+            ? {
+                ...document,
+                checked: !item.checked
+              }
+            : {
+                ...item,
+                checked: isAllChecked || item.checked
+              }
+        )
+      } else {
+        return [...prev, { ...document, checked: true }]
+      }
+    })
+    setIsAllChecked(false)
   }
+
+  const handleAllChecked = () => {
+    const value = !isAllChecked
+    setDocuments((prev) =>
+      prev.map((item) => ({
+        ...item,
+        checked: !getIsAdmin(item) ? value : false
+      }))
+    )
+    setIsAllChecked(value)
+  }
+
+  useEffect(() => {
+    const countChecked = documents.reduce((acc, curr) => acc + (curr.checked ? 1 : 0), 0)
+    if (documents.length > 0 && countChecked === documents.length) {
+      setIsAllChecked(true)
+    }
+  }, [documents])
 
   return (
     <Wrap className={className} style={style}>
       <Manage>
+        <CheckboxTooltip text={'Отметить все'} self>
+          {onChecked && <Checkbox size={'s'} checked={isAllChecked} onChange={handleAllChecked} />}
+        </CheckboxTooltip>
+
         <Headers
           defaultValue={headers[0]}
           options={headers.filter((h) => h.visible)}
-          onChange={(item) => setHeader(item)}
           first={onChecked}
           stretch
         />
 
-        <Popper
-          place={'left'}
-          offset={{ bottom: 80 }}
-          body={
-            <HeaderList>
-              {headers.map((header, index) => (
-                <Checkbox key={index} size={'s'} label={header.label} checked={header.visible} />
-              ))}
-            </HeaderList>
-          }
-          appearance={'clear'}>
-          <Tooltip text={'Отображение полей'} place={'left'}>
-            <Button kind={'icon'}>
-              <Icon icon={'show'} stroke={'white'} />
+        <Actions appearance={appearance} horizontal>
+          <Tooltip text={'Удаление выделенного'} place={'left'}>
+            <Button
+              size={'xs'}
+              kind={'icon'}
+              appearance={buttonDeleteDisabled ? 'ghost' : 'red'}
+              disabled={buttonDeleteDisabled}
+              onClick={() => onDelete(documents.filter((document) => document.checked))}>
+              <Icon
+                icon={'delete'}
+                size={'xs'}
+                stroke={buttonDeleteDisabled ? 'var(--ghost-color-text)' : 'white'}
+              />
             </Button>
           </Tooltip>
-        </Popper>
+
+          <FieldsPopper
+            place={'left'}
+            offset={{ bottom: 80 }}
+            body={
+              <HeaderList>
+                {headers.map((header, index) => (
+                  <Checkbox key={index} size={'s'} label={header.label} checked={header.visible} />
+                ))}
+              </HeaderList>
+            }
+            appearance={'clear'}>
+            <Tooltip text={'Отображение полей'} place={'left'}>
+              <Button size={'xs'} kind={'icon'}>
+                <Icon icon={'show'} size={'xs'} stroke={'white'} />
+              </Button>
+            </Tooltip>
+          </FieldsPopper>
+        </Actions>
       </Manage>
 
       {documents.map((document, index) => (
         <Track key={index} checked={document.checked}>
           <Content appearance={appearance}>
             <CheckboxTooltip text={'Отметить документ'} self>
-              {onChecked && <Checkbox size={'s'} onChange={() => handleChecked(document)} />}
+              {onChecked && (
+                <Checkbox
+                  size={'s'}
+                  checked={!getIsAdmin(document) && (isAllChecked || document.checked)}
+                  onChange={!getIsAdmin(document) && (() => handleChecked(document))}
+                />
+              )}
             </CheckboxTooltip>
+
             <Container onClick={() => onClick(document)}>
               {template.map((cell, index) =>
                 headers[index].visible
@@ -252,8 +348,21 @@ export const Table = ({
             <Actions appearance={appearance}>
               {onEdit && (
                 <Tooltip text={'Редактирование'} place={'left'}>
-                  <Button size={'xs'} kind={'icon'} onClick={() => onEdit(document)}>
-                    <Icon icon={'edit'} size={'xs'} stroke={'white'} />
+                  <Button
+                    size={'xs'}
+                    kind={'icon'}
+                    disabled={getIsAdmin(document) || document.checked}
+                    onClick={() => onEdit(document)}>
+                    <Icon
+                      icon={'edit'}
+                      size={'xs'}
+                      stroke={'white'}
+                      fill={
+                        getIsAdmin(document) || document.checked
+                          ? 'var(--ghost-color-text)'
+                          : 'var(--default-color-accent)'
+                      }
+                    />
                   </Button>
                 </Tooltip>
               )}
@@ -263,8 +372,18 @@ export const Table = ({
                     size={'xs'}
                     kind={'icon'}
                     appearance={'red'}
+                    disabled={getIsAdmin(document) || document.checked}
                     onClick={() => onDelete(document)}>
-                    <Icon icon={'delete'} size={'xs'} stroke={'white'} />
+                    <Icon
+                      icon={'delete'}
+                      size={'xs'}
+                      stroke={'white'}
+                      fill={
+                        getIsAdmin(document) || document.checked
+                          ? 'var(--ghost-color-text)'
+                          : 'var(--default-color-red)'
+                      }
+                    />
                   </Button>
                 </Tooltip>
               )}

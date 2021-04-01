@@ -1,4 +1,6 @@
 import React from 'react'
+
+import DateText from '../../DateText'
 import { Cell } from '..'
 
 export const project = [
@@ -20,11 +22,41 @@ export const project = [
   },
   {
     header: 'Дата публикации',
-    content: (item) => <Cell text={item.publishedAt || '-'} />
+    content: (item) => (
+      <Cell
+        text={
+          (
+            <DateText
+              text={item.createdAt}
+              options={{
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+              }}
+            />
+          ) || '-'
+        }
+      />
+    )
   },
   {
     header: 'Дата создания',
-    content: (item) => <Cell text={item.createdAt || '-'} />,
+    content: (item) => (
+      <Cell
+        text={
+          (
+            <DateText
+              text={item.createdAt}
+              options={{
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+              }}
+            />
+          ) || '-'
+        }
+      />
+    ),
     hidden: true
   }
 ]

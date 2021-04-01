@@ -1,4 +1,6 @@
 import React from 'react'
+
+import DateText from '../../DateText'
 import { Cell } from '..'
 
 export const ticket = [
@@ -24,7 +26,22 @@ export const ticket = [
   },
   {
     header: 'Дата регистрации',
-    content: (item) => <Cell text={item.createdAt || '-'} />,
+    content: (item) => (
+      <Cell
+        text={
+          (
+            <DateText
+              text={item.createdAt}
+              options={{
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+              }}
+            />
+          ) || '-'
+        }
+      />
+    ),
     hidden: true
   }
 ]

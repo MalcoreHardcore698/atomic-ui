@@ -40,15 +40,21 @@ export const Content = styled(ReactTooltip)`
     `}
 `
 
-export const Popper = ({ body, appearance, children, width, ...props }) => {
+export const Popper = ({ body, appearance, children, width, className, ...props }) => {
   const id = `popper-${v4()}`
 
   return (
-    <Wrap>
+    <Wrap className={className}>
       <div data-event={'click focus'} data-for={id} data-tip>
         {children}
       </div>
-      <Content {...props} id={id} width={width} globalEventOff={'click'} appearance={appearance}>
+      <Content
+        {...props}
+        id={id}
+        className={className}
+        width={width}
+        globalEventOff={'click'}
+        appearance={appearance}>
         {body}
       </Content>
     </Wrap>
