@@ -173,7 +173,7 @@ export const Dropzone = ({
   const [error, setError] = useState(false)
   const [images, setImages] = useState([])
   const [initScale, setScale] = useState([0.8])
-  const [avatarState, setAvatar] = useState([])
+  const [avatarState, setAvatar] = useState(false)
   const [avatarHistory, setHistory] = useState([])
 
   const onDrop = useCallback(
