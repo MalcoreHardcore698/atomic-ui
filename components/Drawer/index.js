@@ -21,7 +21,7 @@ export const Side = styled.div`
   display: flex;
   justify-content: center;
   margin-left: auto;
-  max-width: 989px;
+  max-width: 70%;
   height: 100vh;
   background: white;
   transition: transform 0.3s;
