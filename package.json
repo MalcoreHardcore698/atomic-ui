@@ -40,6 +40,7 @@
     "react-share": ">=2.3.1",
     "react-tooltip": "^4.2.11",
     "react-transition-group": "^4.4.1",
+    "react-vimeo": "^2.0.0",
     "react-youtube": "^7.13.1",
     "styled-components": "^5.2.1",
     "uuid": "^8.3.1"
