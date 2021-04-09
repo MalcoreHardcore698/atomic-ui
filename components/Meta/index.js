@@ -3,10 +3,11 @@ import styled, { css } from 'styled-components'
 
 import Row from '../Row'
 import Icon from '../Icon'
-import DateText from '../DateText'
 import Chip from '../Chip'
 import Rating from '../Rating'
 import Tooltip from '../Tooltip'
+import DateText from '../DateText'
+import ShareInSocial from '../ShareInSocial'
 
 export const Wrap = styled(Row)`
   flex-wrap: wrap;
@@ -45,7 +46,7 @@ export const Assessment = styled.div`
   flex-grow: 100;
 `
 
-export const Meta = ({ date, category, rating, short, onChangeRating }) => (
+export const Meta = ({ date, category, rating, short, shareTitle, shareUrl, onChangeRating }) => (
   <Wrap>
     {date && (
       <DateRow>
@@ -71,6 +72,13 @@ export const Meta = ({ date, category, rating, short, onChangeRating }) => (
           {category}
         </Category>
       </Tooltip>
+    )}
+
+    {shareTitle && (
+      <ShareInSocial
+        title={shareTitle}
+        url={shareUrl}
+      />
     )}
 
     {(rating || rating === 0) && (

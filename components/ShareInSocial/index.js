@@ -14,23 +14,23 @@ import styled from 'styled-components'
 import Row from '../Row'
 
 export const Wrap = styled(Row)`
-  grid-gap: 10px;
+  grid-gap: 5px;
 `
 
 export const ShareInSocial = ({ title, url }) => {
   return (
     <Wrap>
       <FacebookShareButton title={title} url={url}>
-        <FacebookIcon size={'2rem'} round />
+        <FacebookIcon size={'1.125rem'} round />
       </FacebookShareButton>
       <VKShareButton title={title} url={url} windowWidth={660} windowHeight={460}>
-        <VKIcon size={'2rem'} round />
+        <VKIcon size={'1.125rem'} round />
       </VKShareButton>
       <OKShareButton title={title} url={url}>
-        <OKIcon size={'2rem'} round />
+        <OKIcon size={'1.125rem'} round />
       </OKShareButton>
       <TelegramShareButton title={title} url={url}>
-        <TelegramIcon size={'2rem'} round />
+        <TelegramIcon size={'1.125rem'} round />
       </TelegramShareButton>
     </Wrap>
   )

@@ -10,6 +10,7 @@ storiesOf('Components API/Data Display/Meta', module).add('Default', () => {
       <Meta category={'Строительство'} rating={3} />
       <Meta date={'12.12.2020'} category={'Строительство'} rating={3} />
       <Meta date={'12.12.2020'} category={'Строительство'} />
+      <Meta category={'Строительство'} shareTitle={'Title'} shareUrl={'/'} />
     </Column>
   )
 })
