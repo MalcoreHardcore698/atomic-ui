@@ -12,8 +12,8 @@ export const Wrap = styled(Row)`
   cursor: pointer;
 `
 
-export const More = ({ text, withText, withButton, onClick }) => (
-  <Wrap onClick={onClick}>
+export const More = ({ text, withText, withButton, className, style, onClick }) => (
+  <Wrap className={className} style={style} onClick={onClick}>
     {withText && <Text style={{ color: 'var(--default-color-accent)' }}>{text}</Text>}
     {withButton && (
       <Button kind={'icon'}>
