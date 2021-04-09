@@ -9,10 +9,17 @@ import {
   VKIcon,
   VKShareButton
 } from 'react-share'
+import styled from 'styled-components'
+
+import Row from '../Row'
+
+export const Wrap = styled(Row)`
+  grid-gap: 10px;
+`
 
 export const ShareInSocial = ({ title, url }) => {
   return (
-    <div>
+    <Wrap>
       <FacebookShareButton title={title} url={url}>
         <FacebookIcon size={'2rem'} round />
       </FacebookShareButton>
@@ -25,7 +32,7 @@ export const ShareInSocial = ({ title, url }) => {
       <TelegramShareButton title={title} url={url}>
         <TelegramIcon size={'2rem'} round />
       </TelegramShareButton>
-    </div>
+    </Wrap>
   )
 }
 
