@@ -1,16 +1,75 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+import { v4 } from 'uuid'
+
 import Row from '../Row'
 import Column from '../Column'
 import Text from '../Text'
 import Title from '../Title'
+import Tooltip from '../Tooltip'
+import Button from '../Button'
+import Popper, { Wrap as WrapPopper } from '../Popper'
 import Icon from '../Icon'
 import Chip from '../Chip'
-import { v4 } from 'uuid'
-import Tooltip from '../Tooltip'
+import Actions from './Actions'
+
+export const ActionTooltip = styled(Tooltip)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--input-height-s);
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 150ms ease;
+
+  svg {
+    path {
+      stroke: var(--ghost-color-text);
+    }
+  }
+
+  .more_square_svg__circle {
+    fill: var(--ghost-color-text);
+    stroke: none;
+  }
+
+  &:hover {
+    svg {
+      path {
+        stroke: black;
+      }
+    }
+
+    .more_square_svg__circle {
+      fill: black;
+      stroke: none;
+    }
+  }
+`
 
 export const Wrap = styled(Row)`
+  position: relative;
+  padding-right: var(--input-height-s);
   transition: opacity 150ms ease;
+
+  ${WrapPopper} {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: var(--z-10);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  &:hover {
+    ${ActionTooltip} {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
 
   ${({ clickable }) =>
     clickable &&
@@ -98,6 +157,19 @@ export const Value = styled(Title)`
   }
 `
 
+export const MarkedText = styled(Row)`
+  grid-gap: 5px;
+
+  .red {
+    color: var(--default-color-red);
+  }
+
+  svg {
+    margin-top: -3px;
+    margin-left: -4px;
+  }
+`
+
 export const getValue = (label, text, disabled) => {
   const disabledStyle = disabled ? { color: 'var(--ghost-color-text)' } : {}
 
@@ -153,6 +225,7 @@ export const Difinition = ({
   stretch,
   disabled,
   revert,
+  actions,
   onLink
 }) => {
   const renderLabel = () =>
@@ -186,6 +259,7 @@ export const Difinition = ({
           stroke={`var(--default-color-${color || 'accent'})`}
         />
       )}
+
       <Content>
         {!revert && renderLabel()}
         {!revert && renderText()}
@@ -193,6 +267,20 @@ export const Difinition = ({
         {revert && renderText()}
         {revert && renderLabel()}
       </Content>
+
+      {actions?.length > 0 && (
+        <Popper
+          place={'bottom'}
+          offset={{ right: 68 }}
+          body={<Actions key={'menu'} actions={actions} />}
+          appearance={'clear'}>
+          <ActionTooltip text={'Действия'}>
+            <Button type={'button'} appearance={'clear'} kind={'icon'} size={'s'}>
+              <Icon icon={'moreSquare'} size={'s'} />
+            </Button>
+          </ActionTooltip>
+        </Popper>
+      )}
     </Wrap>
   )
 }
