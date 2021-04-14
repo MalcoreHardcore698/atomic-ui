@@ -1,3 +1,7 @@
+export function hasAccess(user, permission) {
+  return (user?.role?.permissions || []).includes(permission)
+}
+
 export function createSelectOption(option) {
   return {
     value: option,
