@@ -70,6 +70,11 @@ export const Wrap = styled(Row)`
       visibility: visible;
     }
   }
+`
+
+export const Content = styled(Column)`
+  justify-content: center;
+  grid-gap: 0;
 
   ${({ clickable }) =>
     clickable &&
@@ -80,11 +85,6 @@ export const Wrap = styled(Row)`
         opacity: 0.65;
       }
     `}
-`
-
-export const Content = styled(Column)`
-  justify-content: center;
-  grid-gap: 0;
 `
 
 export const Image = styled.img`
@@ -247,9 +247,7 @@ export const Difinition = ({
   return (
     <Wrap
       className={className}
-      style={style}
-      clickable={!disabled && !!onLink}
-      onClick={() => !disabled && onLink && onLink()}>
+      style={style}>
       {img && !icon && <Image src={img} alt={'Avatar'} />}
       {!img && icon && (
         <RoundedIcon
@@ -260,7 +258,7 @@ export const Difinition = ({
         />
       )}
 
-      <Content>
+      <Content clickable={!disabled && !!onLink} onClick={() => !disabled && onLink && onLink()}>
         {!revert && renderLabel()}
         {!revert && renderText()}
 
