@@ -4,8 +4,9 @@ import styled, { css } from 'styled-components'
 import Row from '../Row'
 import Column from '../Column'
 import Avatar from '../Avatar'
-import Icon from '../Icon'
+import Button from '../Button'
 import Title from '../Title'
+import Icon from '../Icon'
 import Text from '../Text'
 import Meta from '../Meta'
 
@@ -49,7 +50,21 @@ export const Header = styled(Row)`
   }
 `
 
-export const Notice = ({ img, icon, title, message, date, onClick }) => (
+export const Body = styled(Row)`
+  justify-content: space-between;
+  width: 100%;
+
+  @media only screen and (max-width: 480px) {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+`
+
+export const Actions = styled(Row)`
+  grid-gap: 10px;
+`
+
+export const Notice = ({ img, icon, title, message, date, onClick, onAccept, onReject }) => (
   <Wrap onClick={onClick}>
     {img && !icon && <Avatar src={img} />}
     {!img && icon && <CircleIcon icon={icon} stroke={'white'} />}
@@ -60,7 +75,23 @@ export const Notice = ({ img, icon, title, message, date, onClick }) => (
         <Meta date={date} />
       </Header>
 
-      <Text>{message}</Text>
+      <Body>
+        <Text>{message}</Text>
+        {(onAccept || onReject) && (
+          <Actions>
+            {onAccept && (
+              <Button type={'button'} size={'s'} onClick={onAccept}>
+                Принять
+              </Button>
+            )}
+            {onReject && (
+              <Button type={'button'} appearance={'red'} size={'s'} onClick={onReject}>
+                Отклонить
+              </Button>
+            )}
+          </Actions>
+        )}
+      </Body>
     </Content>
   </Wrap>
 )
