@@ -64,7 +64,7 @@ export const Actions = styled(Row)`
   grid-gap: 10px;
 `
 
-export const Notice = ({ img, icon, title, message, date, onClick, onAccept, onReject }) => (
+export const Notice = ({ img, icon, title, message, date, onClick, onApply, onReject }) => (
   <Wrap onClick={onClick}>
     {img && !icon && <Avatar src={img} />}
     {!img && icon && <CircleIcon icon={icon} stroke={'white'} />}
@@ -77,10 +77,10 @@ export const Notice = ({ img, icon, title, message, date, onClick, onAccept, onR
 
       <Body>
         <Text>{message}</Text>
-        {(onAccept || onReject) && (
+        {(onApply || onReject) && (
           <Actions>
-            {onAccept && (
-              <Button type={'button'} size={'s'} onClick={onAccept}>
+            {onApply && (
+              <Button type={'button'} size={'s'} onClick={onApply}>
                 Принять
               </Button>
             )}
