@@ -38,6 +38,18 @@ export const getLabelRole = (role) => {
       return 'Юр. лицо'
     case 'INDIVIDUAL':
       return 'Физ. лицо'
+    case 'RESPONSIBLE ADMIN':
+      return 'Отвественный админ'
+    case 'RESPONSIBLE USER':
+      return 'Отвественный пользователь'
+    case 'RESPONSIBLE MODERATOR':
+      return 'Отвественный модератор'
+    case 'RESPONSIBLE OFICIAL':
+      return 'Отвественное оф. лицо'
+    case 'RESPONSIBLE ENTITY':
+      return 'Отвественное юр. лицо'
+    case 'RESPONSIBLE INDIVIDUAL':
+      return 'Отвественное физ. лицо'
     default:
       return role
   }
@@ -100,6 +112,10 @@ export const getLabelPermission = (permission) => {
       return 'Комментирование статьи'
     case 'COMMENT_PROJECT':
       return 'Комментирование проекта'
+    case 'PURPOSE_PROJECT':
+      return 'Предложение проекта'
+    case 'PURPOSE_ARTICLE':
+      return 'Предложение статьи'
     case 'CHATTING':
       return 'Общение'
     default:

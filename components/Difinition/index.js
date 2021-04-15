@@ -158,6 +158,8 @@ export const Value = styled(Title)`
 `
 
 export const MarkedText = styled(Row)`
+  align-items: center;
+  color: var(--ghost-color-text);
   grid-gap: 5px;
 
   .red {
