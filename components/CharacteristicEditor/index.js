@@ -200,6 +200,7 @@ export const ListItem = ({ item, readOnly, divided, onEdit, onDelete }) => {
               <Button
                 size={'xs'}
                 kind={'icon'}
+                type={'button'}
                 revert={!item.isVisualize}
                 onClick={() =>
                   onEdit && onEdit({
@@ -221,6 +222,7 @@ export const ListItem = ({ item, readOnly, divided, onEdit, onDelete }) => {
                 <Button
                   size={'xs'}
                   kind={'icon'}
+                  type={'button'}
                   appearance={'ghost'}
                   stroke={'none'}
                   onClick={() => onDelete(item)}>

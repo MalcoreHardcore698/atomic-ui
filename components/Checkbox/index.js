@@ -158,21 +158,30 @@ export const CheckBox = ({
   label,
   size,
   disabled,
+  rtl,
   ...props
 }) => {
   const id = v4()
 
+  const renderLabel = () => <Label size={size}>{label}</Label>
+
+  const renderCheckbox = () => (
+    <Wrap size={size} style={inputStyle}>
+      <Input type={'checkbox'} id={`checkbox-${id}`} disabled={disabled} {...props} />
+
+      <Box size={size} />
+
+      <Check icon={'check'} size={size} />
+    </Wrap>
+  )
+
   return (
     <Container htmlFor={`checkbox-${id}`} className={className} style={style} disabled={disabled}>
-      <Wrap size={size} style={inputStyle}>
-        <Input type={'checkbox'} id={`checkbox-${id}`} disabled={disabled} {...props} />
+      {rtl && label && renderLabel()}
+      {!rtl && renderCheckbox()}
 
-        <Box size={size} />
-
-        <Check icon={'check'} size={size} />
-      </Wrap>
-
-      {label && <Label size={size}>{label}</Label>}
+      {rtl && renderCheckbox()}
+      {!rtl && label && renderLabel()}
 
       {children}
     </Container>
