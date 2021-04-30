@@ -10,7 +10,7 @@ export const Wrap = styled(Row)`
   width: 100%;
 `
 
-export const Search = ({ onSubmit, className, ...props }) => {
+export const Search = ({ className, onSubmit, onClick, ...props }) => {
   const [value, setValue] = useState('')
 
   return (
@@ -20,9 +20,11 @@ export const Search = ({ onSubmit, className, ...props }) => {
         placeholder={'Поиск'}
         {...props}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        readOnly={!!onClick}
+        onClick={onClick && (() => onClick())}
+        onChange={(e) => !onClick && setValue(e.target.value)}
       />
-      <Button kind={'icon'} onClick={() => onSubmit(value)}>
+      <Button kind={'icon'} onClick={() => (onClick ? onClick : onSubmit(value))}>
         <Icon icon={'search'} stroke={'white'} />
       </Button>
     </Wrap>
