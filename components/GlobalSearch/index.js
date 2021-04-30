@@ -44,7 +44,7 @@ export const GlobalSearch = ({
 
   const renderContent = () => (
     <React.Fragment>
-      <Search placeholder={'Поиск'} onSubmit={onSubmit} />
+      <Search appearance={'ghost'} placeholder={'Поиск'} onSubmit={onSubmit} />
 
       {Array.isArray(result) &&
         result.map(
