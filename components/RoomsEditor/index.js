@@ -55,9 +55,12 @@ export const Header = styled(Row)`
   flex-grow: 1;
   grid-gap: 10px;
 
-  input:first-child {
+  label:first-child {
     max-width: 96px;
-    text-align: right;
+
+    input {
+      text-align: right;
+    }
   }
 
   ${({ readOnly }) =>
