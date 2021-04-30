@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 
-import { InputLabel } from '../RoomsEditor'
+import { InputLabel } from '../CharacteristicEditor'
 
 export const InputContainer = styled.label`
   display: flex;

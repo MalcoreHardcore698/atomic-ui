@@ -7,11 +7,15 @@ import Column from '../Column'
 import Button from '../Button'
 import Tooltip from '../Tooltip'
 import Divider from '../Divider'
+import { Label } from '../Difinition'
 import Input from '../Input'
 import Alert from '../Alert'
 import Text from '../Text'
 import Icon from '../Icon'
 import Title from '../Title'
+
+const MAX_LIMIT_VALUE = 256
+const MIN_LIMIT_VALUE = 0
 
 export const Wrap = styled(Column)`
   grid-gap: 0;
@@ -33,8 +37,8 @@ export const List = styled(Column)`
   ${({ readOnly }) =>
     readOnly &&
     css`
-      flex-direction: row;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
       padding: 2px;
       grid-gap: 15px;
     `}
@@ -56,11 +60,11 @@ export const Header = styled(Row)`
   grid-gap: 10px;
 
   label:first-child {
-    max-width: 96px;
+    flex-grow: 1;
+  }
 
-    input {
-      text-align: right;
-    }
+  label:last-child {
+    flex-grow: 4;
   }
 
   ${({ readOnly }) =>
@@ -134,63 +138,108 @@ export const Value = styled(Title)`
   }
 `
 
-export const ListItem = ({ item, readOnly, divided, onEdit, onDelete }) => (
-  <React.Fragment>
-    <Item readOnly={readOnly}>
-      <Header readOnly={readOnly}>
-        {(readOnly && item.value) ? (
-          <Trunks value={item.value}>
-            {new Array(Number(item.value)).fill(null).map((_, i) => <span key={i} />)}
-          </Trunks>
-        ) : null}
-        {readOnly ? (
-          <Value tag={'h4'}>
-            {item.value ? `${item.value} ` : null}{item.name}
-          </Value>
-        ) : null}
-        {!readOnly && (
-          <Input
-            type={'text'}
-            defaultValue={item.value}
-            appearance={'ghost'}
-            placeholder={'Значение'}
-            onChange={(e) => onEdit && onEdit({ ...item, value: e.target.value })}
-          />
-        )}
-        {!readOnly && (
-          <Input
-            type={'text'}
-            defaultValue={item.name}
-            appearance={'ghost'}
-            placeholder={'Введите название'}
-            onChange={(e) => onEdit && onEdit({ ...item, name: e.target.value })}
-          />
-        )}
-      </Header>
+const getValue = (val) => {
+  const number = Number(val)
+  if (number > MAX_LIMIT_VALUE) return MAX_LIMIT_VALUE
+  if (number < MIN_LIMIT_VALUE) return MIN_LIMIT_VALUE
+  return val
+}
 
-      {!readOnly && onDelete && (
-        <Actions>
-          <Tooltip text={'Удалить'}>
-            <Button
-              size={'xs'}
-              kind={'icon'}
+export const ListItem = ({ item, readOnly, divided, onEdit, onDelete }) => {
+  return (
+    <React.Fragment>
+      <Item readOnly={readOnly}>
+        <Header readOnly={readOnly}>
+          {(readOnly && item.isVisualize && !isNaN(item.value)) ? (
+            <Trunks value={item.value}>
+              {new Array(Number(item.value)).fill(null).map((_, i) => <span key={i} />)}
+            </Trunks>
+          ) : null}
+
+          {(readOnly && !item.isVisualize) ? (
+            <Label>
+              {item.name}
+            </Label>
+          ) : null}
+
+          {readOnly ? (
+            <Value tag={'h4'}>
+              {item.value}
+            </Value>
+          ) : null}
+
+          {!readOnly && (
+            <Input
+              type={'text'}
+              defaultValue={item.value}
               appearance={'ghost'}
-              stroke={'none'}
-              onClick={() => onDelete(item)}>
-              <Icon
-                icon={'delete'}
-                stroke={'none'}
-                fill={'var(--default-color-red)'}
+              placeholder={'Значение'}
+              onChange={(e) =>
+                onEdit && onEdit({
+                  ...item,
+                  value: getValue(e.target.value),
+                  isVisualize: !isNaN(item.value)
+                })
+              }
+            />
+          )}
+          {!readOnly && (
+            <Input
+              type={'text'}
+              defaultValue={item.name}
+              appearance={'ghost'}
+              placeholder={'Введите название'}
+              onChange={(e) => onEdit && onEdit({ ...item, name: e.target.value })}
+            />
+          )}
+        </Header>
+
+        {!readOnly && (
+          <Actions>
+            <Tooltip text={'Визуализировать (только цифры)'}>
+              <Button
                 size={'xs'}
-              />
-            </Button>
-          </Tooltip>
-        </Actions>
-      )}
-    </Item>
-    {!readOnly && divided && <Divider clear />}
-  </React.Fragment>
-)
+                kind={'icon'}
+                revert={!item.isVisualize}
+                onClick={() =>
+                  onEdit && onEdit({
+                    ...item,
+                    value: !isNaN(item.value) ? item.value : MIN_LIMIT_VALUE,
+                    isVisualize: !item.isVisualize
+                  })
+                }>
+                <Icon
+                  size={'xs'}
+                  icon={'graph'}
+                  stroke={item.isVisualize ? 'white' : 'var(--default-color-accent)'}
+                  fill={'var(--default-color-accent)'}
+                />
+              </Button>
+            </Tooltip>
+            {onDelete && (
+              <Tooltip text={'Удалить'}>
+                <Button
+                  size={'xs'}
+                  kind={'icon'}
+                  appearance={'ghost'}
+                  stroke={'none'}
+                  onClick={() => onDelete(item)}>
+                  <Icon
+                    icon={'delete'}
+                    stroke={'none'}
+                    fill={'var(--default-color-red)'}
+                    size={'xs'}
+                  />
+                </Button>
+              </Tooltip>
+            )}
+          </Actions>
+        )}
+      </Item>
+      {!readOnly && divided && <Divider clear />}
+    </React.Fragment>
+  )
+}
 
 export const InteractiveList = ({ list, readOnly, onChange }) => {
   const onEdit = (edited) => {
@@ -222,29 +271,29 @@ export const InteractiveList = ({ list, readOnly, onChange }) => {
   )
 }
 
-export const RoomsEditor = ({
+export const CharacteristicEditor = ({
   label,
   defaultValue,
   readOnly,
   onChange
 }) => {
-  const [rooms, setRooms] = useState(defaultValue || [])
+  const [characteristics, setCharacteristics] = useState(defaultValue || [])
 
   const onAdd = () => {
     const name = 'Новое учебное помещение'
-    const item = { id: v4(), name, value: null }
-    setRooms((prev) => [...prev, item])
+    const item = { id: v4(), name, value: null, isVisualize: null }
+    setCharacteristics((prev) => [...prev, item])
   }
 
   useEffect(() => {
-    if (onChange) onChange(rooms)
-  }, [rooms, onChange])
+    if (onChange) onChange(characteristics)
+  }, [characteristics, onChange])
 
   useEffect(() => {
-    setRooms(defaultValue)
+    setCharacteristics(defaultValue)
   }, [defaultValue])
 
-  if (readOnly && rooms.length === 0) {
+  if (readOnly && characteristics.length === 0) {
     return null
   }
 
@@ -254,8 +303,8 @@ export const RoomsEditor = ({
         {label && <InputLabel>{label}</InputLabel>}
 
         <InteractiveList
-          list={rooms}
-          onChange={setRooms}
+          list={characteristics}
+          onChange={setCharacteristics}
           readOnly={readOnly}
         />
 
@@ -270,8 +319,4 @@ export const RoomsEditor = ({
   )
 }
 
-RoomsEditor.defaultProps = {
-  label: 'Количество учебных помещений'
-}
-
-export default RoomsEditor
+export default CharacteristicEditor

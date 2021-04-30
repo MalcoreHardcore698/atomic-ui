@@ -130,8 +130,8 @@ export const Label = styled(Text)`
   color: var(--ghost-color-text);
   font-size: var(--font-size-s);
   white-space: nowrap;
-  width: 128px;
-  max-width: 400px;
+  min-width: 128px;
+  max-width: 435px;
   overflow: hidden;
   text-overflow: ellipsis;
 
