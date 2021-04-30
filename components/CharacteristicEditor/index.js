@@ -38,7 +38,7 @@ export const List = styled(Column)`
     readOnly &&
     css`
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
       padding: 2px;
       grid-gap: 15px;
     `}
