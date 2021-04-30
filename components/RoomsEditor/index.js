@@ -248,7 +248,7 @@ export const RoomsEditor = ({
   return (
     <Wrap>
       <Container>
-        {label && readOnly && <InputLabel>{label}</InputLabel>}
+        {label && <InputLabel>{label}</InputLabel>}
 
         <InteractiveList
           list={rooms}

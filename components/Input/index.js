@@ -1,6 +1,18 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 
+import { InputLabel } from '../RoomsEditor'
+
+export const InputContainer = styled.label`
+  display: flex;
+  flex-direction: column;
+  border: none;
+  background: none;
+  max-width: 100%;
+  flex-grow: 1;
+  grid-gap: 5px;
+`
+
 export const Wrap = styled.input`
   font-family: var(--default-font-family);
   font-size: 0.875rem;
@@ -63,7 +75,12 @@ export const Wrap = styled.input`
     `}
 `
 
-export const Input = React.forwardRef((props, ref) => <Wrap {...props} ref={ref} />)
+export const Input = React.forwardRef(({ label, ...props }, ref) => (
+  <InputContainer>
+    {label && <InputLabel>{label}</InputLabel>}
+    <Wrap {...props} ref={ref} />
+  </InputContainer>
+))
 
 Input.defaultProps = {
   appearance: 'default'
