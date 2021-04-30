@@ -16,13 +16,13 @@ export const Box = styled.span`
   transition: background-color 0.3s ease, border-color 0.3s ease;
 
   ${({ size }) =>
-    size === 'xs' &&
-    css`
+  size === 'xs' &&
+  css`
       border-radius: 6px;
     `}
 `
 
-export const Container = styled.label`
+export const Wrap = styled.label`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -30,6 +30,7 @@ export const Container = styled.label`
   line-height: 1;
   cursor: pointer;
   user-select: none;
+  grid-gap: 12px;
 
   ${({ disabled }) =>
     disabled &&
@@ -41,6 +42,18 @@ export const Container = styled.label`
   &:hover ${Box} {
     color: #fff;
   }
+
+  ${({ size }) =>
+    size === 'xs' &&
+    css`
+      grid-gap: 8px;
+    `}
+
+  ${({ size }) =>
+    size === 'm' &&
+    css`
+      grid-gap: 15px;
+    `}
 `
 
 export const Check = styled(Icon)`
@@ -55,24 +68,11 @@ export const Label = styled.span`
   display: inline-flex;
   padding-top: 2px;
   color: rgba(0, 0, 0, 75%);
-  margin-left: 12px;
 
   ${({ size }) =>
     size &&
     css`
       font-size: var(--font-size-${size});
-    `}
-
-  ${({ size }) =>
-    size === 'xs' &&
-    css`
-      margin-left: 8px;
-    `}
-
-  ${({ size }) =>
-    size === 'm' &&
-    css`
-      margin-left: 15px;
     `}
 `
 
@@ -116,7 +116,7 @@ export const Input = styled.input`
   }
 `
 
-export const Wrap = styled.span`
+export const Container = styled.span`
   position: relative;
 
   display: inline-flex;
@@ -166,17 +166,22 @@ export const CheckBox = ({
   const renderLabel = () => <Label size={size}>{label}</Label>
 
   const renderCheckbox = () => (
-    <Wrap size={size} style={inputStyle}>
+    <Container size={size} style={inputStyle}>
       <Input type={'checkbox'} id={`checkbox-${id}`} disabled={disabled} {...props} />
 
       <Box size={size} />
 
       <Check icon={'check'} size={size} />
-    </Wrap>
+    </Container>
   )
 
   return (
-    <Container htmlFor={`checkbox-${id}`} className={className} style={style} disabled={disabled}>
+    <Wrap
+      size={size}
+      style={style}
+      htmlFor={`checkbox-${id}`}
+      className={className}
+      disabled={disabled}>
       {rtl && label && renderLabel()}
       {!rtl && renderCheckbox()}
 
@@ -184,7 +189,7 @@ export const CheckBox = ({
       {!rtl && label && renderLabel()}
 
       {children}
-    </Container>
+    </Wrap>
   )
 }
 
