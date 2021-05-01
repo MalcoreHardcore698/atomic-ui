@@ -10,8 +10,8 @@ export const Wrap = styled(Row)`
   width: 100%;
 `
 
-export const Search = ({ className, onSubmit, onClick, ...props }) => {
-  const [value, setValue] = useState('')
+export const Search = ({ className, defaultValue, onSubmit, onClick, ...props }) => {
+  const [value, setValue] = useState(defaultValue || '')
 
   return (
     <Wrap className={className}>
@@ -19,7 +19,6 @@ export const Search = ({ className, onSubmit, onClick, ...props }) => {
         type={'text'}
         placeholder={'Поиск'}
         {...props}
-        value={value}
         readOnly={!!onClick}
         onClick={onClick && (() => onClick())}
         onChange={(e) => !onClick && setValue(e.target.value)}
