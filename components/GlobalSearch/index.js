@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 import Column from '../Column'
@@ -43,10 +43,20 @@ export const GlobalSearch = ({
   onSubmit
 }) => {
   const [entity, setEntity] = useState(initialEntity)
+  const searchRef = useRef(null)
+
+  const handleChange = (value) => {
+    setEntity(value)
+
+    if (searchRef?.current) {
+      searchRef.current.value = ''
+    }
+  }
 
   const renderContent = () => (
     <React.Fragment>
       <Search
+        ref={searchRef}
         appearance={'ghost'}
         placeholder={'Поиск'}
         defaultValue={search}
@@ -79,7 +89,7 @@ export const GlobalSearch = ({
         placeholder={'Где будем искать?'}
         label={'Зона поиска'}
         options={entities}
-        onChange={setEntity}
+        onChange={handleChange}
         isLoading={loading}
         isSearchable
         isClearable

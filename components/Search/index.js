@@ -10,7 +10,7 @@ export const Wrap = styled(Row)`
   width: 100%;
 `
 
-export const Search = ({ className, defaultValue, onSubmit, onClick, ...props }) => {
+export const Search = React.forwardRef(({ className, defaultValue, onSubmit, onClick, ...props }, ref) => {
   const [value, setValue] = useState(defaultValue || '')
 
   useEffect(() => {
@@ -23,6 +23,7 @@ export const Search = ({ className, defaultValue, onSubmit, onClick, ...props })
         type={'text'}
         placeholder={'Поиск'}
         {...props}
+        ref={ref}
         readOnly={!!onClick}
         defaultValue={defaultValue}
         onClick={onClick && (() => onClick())}
@@ -34,6 +35,6 @@ export const Search = ({ className, defaultValue, onSubmit, onClick, ...props })
       </Button>
     </Wrap>
   )
-}
+})
 
 export default Search
