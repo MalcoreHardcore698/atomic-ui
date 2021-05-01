@@ -5,6 +5,7 @@ import Column from '../Column'
 import Select from '../Select'
 import Search from '../Search'
 import Spinner from '../Spinner'
+import Alert from '../Alert'
 
 export const Wrap = styled(Column)`
   padding: var(--default-gap);
@@ -52,12 +53,16 @@ export const GlobalSearch = ({
         onSubmit={onSubmit}
       />
 
-      {Array.isArray(result) &&
+      {result?.length > 0 ?
         result.map(
           (item) =>
             entity.render && (
               <React.Fragment key={item.id || item.email}>{entity.render(item)}</React.Fragment>
             )
+        ) : (
+          <Alert style={{ width: '100%', textAlign: 'center', flexGrow: 1 }}>
+            Ничего не найдено
+          </Alert>
         )}
     </React.Fragment>
   )
