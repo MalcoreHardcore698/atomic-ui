@@ -50,6 +50,7 @@ export const GlobalSearch = ({
 
     if (searchRef?.current) {
       searchRef.current.value = ''
+      if (onSubmit) onSubmit('')
     }
   }
 
