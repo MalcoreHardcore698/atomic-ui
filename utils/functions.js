@@ -1,3 +1,7 @@
+export function omit(obj, arr) {
+  return Object.fromEntries(Object.entries(obj).filter(([key]) => !arr.includes(key)))
+}
+
 export function hasAccess(user, permission) {
   return (user?.role?.permissions || []).includes(permission)
 }
