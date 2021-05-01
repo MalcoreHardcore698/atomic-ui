@@ -24,6 +24,7 @@ export const Search = ({ className, defaultValue, onSubmit, onClick, ...props })
         placeholder={'Поиск'}
         {...props}
         readOnly={!!onClick}
+        defaultValue={defaultValue}
         onClick={onClick && (() => onClick())}
         onChange={(e) => !onClick && setValue(e.target.value)}
         onKeyDown={(e) => !onClick && e.key === 'Enter' && onSubmit(value)}
