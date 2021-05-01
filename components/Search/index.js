@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 import Row from '../Row'
@@ -12,6 +12,10 @@ export const Wrap = styled(Row)`
 
 export const Search = ({ className, defaultValue, onSubmit, onClick, ...props }) => {
   const [value, setValue] = useState(defaultValue || '')
+
+  useEffect(() => {
+    setValue(defaultValue)
+  }, [defaultValue])
 
   return (
     <Wrap className={className}>
