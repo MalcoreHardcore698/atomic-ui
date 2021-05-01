@@ -164,7 +164,7 @@ export const ListItem = ({ item, readOnly, divided, onEdit, onDelete }) => {
 
           {readOnly ? (
             <Value tag={'h4'}>
-              {item.value}
+              {item.isVisualize ? `${item.value} ${item.name}` : item.value}
             </Value>
           ) : null}
 

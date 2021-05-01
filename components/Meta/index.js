@@ -47,7 +47,16 @@ export const Assessment = styled.div`
   flex-grow: 100;
 `
 
-export const Meta = ({ date, category, rating, short, shareTitle, shareUrl, onChangeRating }) => (
+export const Meta = ({
+  date,
+  short,
+  rating,
+  category,
+  shareUrl,
+  shareTitle,
+  onChangeRating,
+  onClickByCategory
+}) => (
   <Wrap>
     {date && (
       <DateRow>
@@ -66,10 +75,11 @@ export const Meta = ({ date, category, rating, short, shareTitle, shareUrl, onCh
     {category && (
       <Tooltip place={'top'} text={category}>
         <Category
-          short={short && category.length > 25}
+          size={'xs'}
           color={'ghost'}
           appearance={'outlined'}
-          size={'xs'}>
+          short={short && category.length > 25}
+          onClick={onClickByCategory}>
           {category}
         </Category>
       </Tooltip>
