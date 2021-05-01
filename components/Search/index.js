@@ -23,6 +23,7 @@ export const Search = ({ className, onSubmit, onClick, ...props }) => {
         readOnly={!!onClick}
         onClick={onClick && (() => onClick())}
         onChange={(e) => !onClick && setValue(e.target.value)}
+        onKeyDown={(e) => !onClick && e.key === 'Enter' && onSubmit(value)}
       />
       <Button kind={'icon'} onClick={() => (onClick ? onClick : onSubmit(value))}>
         <Icon icon={'search'} stroke={'white'} />

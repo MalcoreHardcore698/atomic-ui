@@ -31,6 +31,7 @@ export const Loader = styled.div`
 
 export const GlobalSearch = ({
   result,
+  search,
   loading,
   entities,
   initialEntity,
@@ -44,7 +45,12 @@ export const GlobalSearch = ({
 
   const renderContent = () => (
     <React.Fragment>
-      <Search appearance={'ghost'} placeholder={'Поиск'} onSubmit={onSubmit} />
+      <Search
+        appearance={'ghost'}
+        placeholder={'Поиск'}
+        defaultValue={search}
+        onSubmit={onSubmit}
+      />
 
       {Array.isArray(result) &&
         result.map(
