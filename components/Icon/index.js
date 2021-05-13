@@ -75,6 +75,7 @@ import Message from '../../assets/images/icons/message.svg'
 import MoreCircle from '../../assets/images/icons/more_circle.svg'
 import MoreSquare from '../../assets/images/icons/more_square.svg'
 import Notification from '../../assets/images/icons/notification.svg'
+import Print from '../../assets/images/icons/print.svg'
 import Paper from '../../assets/images/icons/paper.svg'
 import PaperDownload from '../../assets/images/icons/paper_download.svg'
 import PaperFail from '../../assets/images/icons/paper_fail.svg'
@@ -188,6 +189,7 @@ export const library = {
   moreSquare: MoreSquare,
   notification: Notification,
   paper: Paper,
+  print: Print,
   paperDownload: PaperDownload,
   paperFail: PaperFail,
   paperNegative: PaperNegative,
