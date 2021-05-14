@@ -302,7 +302,7 @@ export const Table = ({
           stretch
         />
 
-        <Actions appearance={appearance} horizontal>
+        <Actions appearance={appearance} checkable={!onChecked} horizontal>
           {onDelete && (
             <Tooltip text={'Удаление выделенного'} place={'left'}>
               <Button
