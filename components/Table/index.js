@@ -77,6 +77,12 @@ export const Content = styled(Row)`
       width: 100%;
     `}
 
+  ${({ editable }) =>
+    editable &&
+    css`
+      width: calc(100% - 55px);
+    `}
+
   ${({ appearance }) =>
     appearance === 'default' &&
     css`
@@ -342,7 +348,7 @@ export const Table = ({
 
       {documents.map((document, index) => (
         <Track key={index} checked={document.checked}>
-          <Content appearance={appearance} checkable={!onChecked}>
+          <Content appearance={appearance} checkable={!onChecked} editable={!onChecked && onEdit}>
             {onChecked && (
               <CheckboxTooltip text={'Отметить документ'} self>
                 <Checkbox
