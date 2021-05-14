@@ -17,6 +17,12 @@ export const Wrap = styled(Column)``
 export const Manage = styled(Row)`
   display: grid;
   grid-template-columns: 36px 1fr 70px;
+
+  ${({ checkable }) =>
+    checkable &&
+    css`
+      grid-template-columns: 1fr 40px;
+    `}
 `
 
 export const Headers = styled(Switch)`
@@ -64,6 +70,12 @@ export const Track = styled(Row)`
 export const Content = styled(Row)`
   padding: 5px 15px;
   width: calc(100% - 85px);
+
+  ${({ checkable }) =>
+    checkable &&
+    css`
+      width: 100%;
+    `}
 
   ${({ appearance }) =>
     appearance === 'default' &&
@@ -121,6 +133,12 @@ export const Actions = styled(Column)`
   ${TooltipWrap} {
     width: 100%;
   }
+
+  ${({ checkable }) =>
+    checkable &&
+    css`
+      width: 40px;
+    `}
 
   ${({ horizontal }) =>
     horizontal &&
@@ -270,10 +288,12 @@ export const Table = ({
 
   return (
     <Wrap className={className} style={style}>
-      <Manage>
-        <CheckboxTooltip text={'Отметить все'} self>
-          {onChecked && <Checkbox size={'s'} checked={isAllChecked} onChange={handleAllChecked} />}
-        </CheckboxTooltip>
+      <Manage checkable={!onChecked}>
+        {onChecked && (
+          <CheckboxTooltip text={'Отметить все'} self>
+            <Checkbox size={'s'} checked={isAllChecked} onChange={handleAllChecked} />
+          </CheckboxTooltip>
+        )}
 
         <Headers
           defaultValue={headers[0]}
@@ -283,20 +303,22 @@ export const Table = ({
         />
 
         <Actions appearance={appearance} horizontal>
-          <Tooltip text={'Удаление выделенного'} place={'left'}>
-            <Button
-              size={'xs'}
-              kind={'icon'}
-              appearance={buttonDeleteDisabled ? 'ghost' : 'red'}
-              disabled={buttonDeleteDisabled}
-              onClick={() => onDelete(documents.filter((document) => document.checked))}>
-              <Icon
-                icon={'delete'}
+          {onDelete && (
+            <Tooltip text={'Удаление выделенного'} place={'left'}>
+              <Button
                 size={'xs'}
-                stroke={buttonDeleteDisabled ? 'var(--ghost-color-text)' : 'white'}
-              />
-            </Button>
-          </Tooltip>
+                kind={'icon'}
+                appearance={buttonDeleteDisabled ? 'ghost' : 'red'}
+                disabled={buttonDeleteDisabled}
+                onClick={() => onDelete(documents.filter((document) => document.checked))}>
+                <Icon
+                  icon={'delete'}
+                  size={'xs'}
+                  stroke={buttonDeleteDisabled ? 'var(--ghost-color-text)' : 'white'}
+                />
+              </Button>
+            </Tooltip>
+          )}
 
           <FieldsPopper
             place={'left'}
@@ -320,16 +342,16 @@ export const Table = ({
 
       {documents.map((document, index) => (
         <Track key={index} checked={document.checked}>
-          <Content appearance={appearance}>
-            <CheckboxTooltip text={'Отметить документ'} self>
-              {onChecked && (
+          <Content appearance={appearance} checkable={!onChecked}>
+            {onChecked && (
+              <CheckboxTooltip text={'Отметить документ'} self>
                 <Checkbox
                   size={'s'}
                   checked={!getIsAdmin(document) && (isAllChecked || document.checked)}
                   onChange={!getIsAdmin(document) && (() => handleChecked(document))}
                 />
-              )}
-            </CheckboxTooltip>
+              </CheckboxTooltip>
+            )}
 
             <Container onClick={() => onClick(document)}>
               {template.map((cell, index) =>
@@ -345,7 +367,7 @@ export const Table = ({
           </Content>
 
           {(onEdit || onDelete) && (
-            <Actions appearance={appearance}>
+            <Actions appearance={appearance} checkable={!onChecked}>
               {onEdit && (
                 <Tooltip text={'Редактирование'} place={'left'}>
                   <Button

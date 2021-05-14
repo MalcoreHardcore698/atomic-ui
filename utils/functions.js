@@ -43,17 +43,17 @@ export const getLabelRole = (role) => {
     case 'INDIVIDUAL':
       return 'Физ. лицо'
     case 'RESPONSIBLE ADMIN':
-      return 'Отвественный админ'
+      return 'Ответственный админ'
     case 'RESPONSIBLE USER':
-      return 'Отвественный пользователь'
+      return 'Ответственный пользователь'
     case 'RESPONSIBLE MODERATOR':
-      return 'Отвественный модератор'
+      return 'Ответственный модератор'
     case 'RESPONSIBLE OFICIAL':
-      return 'Отвественное оф. лицо'
+      return 'Ответственное оф. лицо'
     case 'RESPONSIBLE ENTITY':
-      return 'Отвественное юр. лицо'
+      return 'Ответственное юр. лицо'
     case 'RESPONSIBLE INDIVIDUAL':
-      return 'Отвественное физ. лицо'
+      return 'Ответственное физ. лицо'
     default:
       return role
   }
