@@ -7,7 +7,9 @@ import {
   TelegramIcon,
   TelegramShareButton,
   VKIcon,
-  VKShareButton
+  VKShareButton,
+  WhatsappIcon,
+  WhatsappShareButton
 } from 'react-share'
 import styled from 'styled-components'
 
@@ -32,6 +34,9 @@ export const ShareInSocial = ({ title, url }) => {
       <TelegramShareButton title={title} url={url}>
         <TelegramIcon size={'1.125rem'} round />
       </TelegramShareButton>
+      <WhatsappShareButton title={title} url={url}>
+        <WhatsappIcon size={'1.125rem'} round />
+      </WhatsappShareButton>
     </Wrap>
   )
 }
