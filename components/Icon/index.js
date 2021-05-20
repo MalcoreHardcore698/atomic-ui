@@ -48,6 +48,7 @@ import Discount from '../../assets/images/icons/discount.svg'
 import Discovery from '../../assets/images/icons/discovery.svg'
 import Document from '../../assets/images/icons/document.svg'
 import Download from '../../assets/images/icons/download.svg'
+import DoubleCheck from '../../assets/images/icons/double_check.svg'
 import Edit from '../../assets/images/icons/edit.svg'
 import EditSquare from '../../assets/images/icons/edit_square.svg'
 import Facebook from '../../assets/images/icons/facebook.svg'
@@ -161,6 +162,7 @@ export const library = {
   discovery: Discovery,
   document: Document,
   download: Download,
+  doubleCheck: DoubleCheck,
   edit: Edit,
   editSquare: EditSquare,
   facebook: Facebook,

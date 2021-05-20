@@ -216,6 +216,12 @@ export const DispatchTime = styled(DateText)`
       font-size: var(--font-size-s);
       color: var(--default-color-text);
     `}
+
+  ${({ type, compact }) =>
+    !compact && type &&
+    css`
+      right: 35px;
+    `}
 `
 
 export const DispatchDate = styled(DateText)`
@@ -237,12 +243,26 @@ export const Actions = styled(Row)`
   grid-gap: 10px;
 `
 
+export const DispatchType = styled(Icon)`
+  position: absolute;
+  right: 7px;
+  bottom: 2px;
+
+  ${({ type }) =>
+    type === 'UNREADED' &&
+    css`
+      right: 10px;
+      bottom: 8px;
+    `}
+`
+
 export const Message = ({
   avatar,
   side,
   name,
   text,
   time,
+  type,
   tails,
   style,
   compact,
@@ -295,7 +315,7 @@ export const Message = ({
           <OpinionText compact={compact}>{message}</OpinionText>
         )}
 
-        <DispatchTime text={updatedAt || time} compact={compact} />
+        <DispatchTime type={type} text={updatedAt || time} compact={compact} />
         {compact && updatedAt && (
           <DispatchUpdatedDate>
             Отредактировано{' '}
@@ -314,6 +334,15 @@ export const Message = ({
               month: 'long',
               year: 'numeric'
             }}
+          />
+        )}
+        {!compact && type && (
+          <DispatchType
+            size={'xs'}
+            type={type}
+            icon={type === 'UNREADED' ? 'check' : 'doubleCheck'}
+            stroke={side === 'observer' ? 'var(--ghost-color-text)' : 'white'}
+            fill={side === 'observer' ? 'var(--ghost-color-text)' : 'white'}
           />
         )}
 
