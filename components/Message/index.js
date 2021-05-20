@@ -27,6 +27,7 @@ export const Wrap = styled.div`
   transition: opacity 150ms ease;
 
   & > span {
+    display: flex;
     grid-area: avatar;
     align-self: end;
     justify-self: start;
@@ -106,6 +107,7 @@ export const Opinion = styled.div`
   border-radius: var(--surface-border-radius);
   color: white;
   width: fit-content;
+  min-width: 80px;
   grid-area: opinion;
 
   ${({ side }) =>
