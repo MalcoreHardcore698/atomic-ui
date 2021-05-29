@@ -28,6 +28,7 @@ export const Side = styled.div`
 
   @media only screen and (max-width: 1098px) {
     width: calc(100% - 60px);
+    max-width: 100%;
 
     ${({ half }) =>
       half &&
@@ -38,6 +39,7 @@ export const Side = styled.div`
 
   @media only screen and (max-width: 480px) {
     width: 100%;
+    max-width: 100%;
 
     ${({ half }) =>
       half &&
