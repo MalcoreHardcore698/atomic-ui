@@ -113,7 +113,7 @@ export const DatePicker = ({
           size={'xs'}
           stroke={'var(--ghost-color-text)'}
           icon={selected ? 'delete' : 'calendar'}
-          onClick={selected && (() => setSelected(null))}
+          onClick={selected && (() => handleChange(null))}
         />
       </TextField>
 
