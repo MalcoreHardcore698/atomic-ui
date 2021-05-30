@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import { getDateLabel, parseDate } from '../../assets/scripts/date'
 import useClickOutside from '../../hooks/useClickOutside'
@@ -53,8 +53,17 @@ export const Popout = styled(Transition)`
 
 export const DateIcon = styled(Icon)`
   position: absolute;
-  top: 10px;
+  top: 9px;
   right: 10px;
+
+  ${({ onClick }) =>
+    onClick && 
+    css`
+      cursor: pointer;
+      &:hover {
+        opacity: 0.45;
+      }
+    `}
 `
 
 export const DatePicker = ({
@@ -100,7 +109,12 @@ export const DatePicker = ({
           appearance={appearance}
           readOnly
         />
-        <DateIcon icon={'calendar'} stroke={'var(--ghost-color-text)'} />
+        <DateIcon
+          size={'xs'}
+          stroke={'var(--ghost-color-text)'}
+          icon={selected ? 'delete' : 'calendar'}
+          onClick={selected && (() => setSelected(null))}
+        />
       </TextField>
 
       <Popout in={isOpen} animation={'fade'} timeout={DURATION}>
