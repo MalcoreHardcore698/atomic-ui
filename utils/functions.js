@@ -17,6 +17,17 @@ export function createSelectOptions(options) {
   return options.map((option) => createSelectOption(option))
 }
 
+export const getLabelStatusChat = (status) => {
+  switch (status) {
+    case 'OPENED':
+      return 'Открытый'
+    case 'CLOSED':
+      return 'Закрытый'
+    default:
+      return status
+  }
+}
+
 export const getLabelStatus = (status) => {
   switch (status) {
     case 'PUBLISHED':
