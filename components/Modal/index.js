@@ -95,15 +95,15 @@ export const Content = styled.div`
   }
 
   ${({ size }) =>
-    size === 'l' &&
-    css`
-      top: 5%;
-      min-width: 65%;
-    `}
+      size === 'l' &&
+      css`
+        top: 5%;
+        min-width: 65%;
+      `}
 
   @media only screen and (max-width: 768px) {
-    min-width: 320px;
-  }
+  min-width: 320px;
+}
 
   @media only screen and (max-width: 480px) {
     min-width: 285px;
@@ -153,15 +153,16 @@ export const Switch = (props) => {
   return Child
 }
 
-export const Route = ({ component, close, back, jump }) => {
+export const Route = ({ component, data, close, back, jump }) => {
   const Compoent = component
-  return <Compoent close={close} back={back} jump={jump} />
+  return <Compoent data={data} close={close} back={back} jump={jump} />
 }
 
 export const Modal = ({ size, routes, closeByBackground, onHide }) => {
   const [navigator, setNavigator] = useState(['/'])
   const [content, setContent] = useState(false)
   const [animation, setAnimation] = useState(null)
+  const [data, setData] = useState(null)
 
   const transitions = {
     fade: {
@@ -206,6 +207,7 @@ export const Modal = ({ size, routes, closeByBackground, onHide }) => {
     }, DURATION)
   }
   const handleJump = (path) => {
+    setData(data)
     setAnimation('slideOutLeft')
     setTimeout(() => {
       setNavigator([...navigator, path])
@@ -230,42 +232,43 @@ export const Modal = ({ size, routes, closeByBackground, onHide }) => {
   }, [routes])
 
   return (
-    <Transition {...transitions.fade}>
-      <Wrap>
-        <Overlay
-          className={!closeByBackground ? 'clear' : ''}
-          onClick={closeByBackground ? handleClose : () => {}}
-        />
+      <Transition {...transitions.fade}>
+        <Wrap>
+          <Overlay
+              className={!closeByBackground ? 'clear' : ''}
+              onClick={closeByBackground ? handleClose : () => {}}
+          />
 
-        <Transition {...transitions.swing}>
-          <Content className={`animate${animation ? ` ${animation}` : ''}`} size={size}>
-            {getTitle() && (
-              <Headline>
-                {navigator.length > 1 && getRoute().back && (
-                  <BackButton onClick={handleBack} appearance={'clear'}>
-                    <Icon icon={'arrowLeft'} />
-                  </BackButton>
-                )}
+          <Transition {...transitions.swing}>
+            <Content className={`animate${animation ? ` ${animation}` : ''}`} size={size}>
+              {getTitle() && (
+                  <Headline>
+                    {navigator.length > 1 && getRoute().back && (
+                        <BackButton onClick={handleBack} appearance={'clear'}>
+                          <Icon icon={'arrowLeft'} />
+                        </BackButton>
+                    )}
 
-                <StyledTitle tag={'h3'}>{getTitle()}</StyledTitle>
-              </Headline>
-            )}
+                    <StyledTitle tag={'h3'}>{getTitle()}</StyledTitle>
+                  </Headline>
+              )}
 
-            <Switch path={getPath(navigator)}>
-              {(routes || []).map((props, key) => (
-                <Route
-                  key={key}
-                  {...props}
-                  close={handleClose}
-                  back={handleBack}
-                  jump={handleJump}
-                />
-              ))}
-            </Switch>
-          </Content>
-        </Transition>
-      </Wrap>
-    </Transition>
+              <Switch path={getPath(navigator)}>
+                {(routes || []).map((props, key) => (
+                    <Route
+                        key={key}
+                        {...props}
+                        data={data}
+                        close={handleClose}
+                        back={handleBack}
+                        jump={handleJump}
+                    />
+                ))}
+              </Switch>
+            </Content>
+          </Transition>
+        </Wrap>
+      </Transition>
   )
 }
 
