@@ -206,7 +206,7 @@ export const Modal = ({ size, routes, closeByBackground, onHide }) => {
       setAnimation('slideInLeft')
     }, DURATION)
   }
-  const handleJump = (path) => {
+  const handleJump = (path, data) => {
     setData(data)
     setAnimation('slideOutLeft')
     setTimeout(() => {
