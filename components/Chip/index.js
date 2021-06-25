@@ -35,94 +35,100 @@ export const Wrap = styled.span`
     appearance === 'default' &&
     css`
       color: white;
-
       ${({ color }) =>
         color === 'default' &&
         css`
           background: var(--default-color-accent);
           border-color: var(--default-color-accent);
-
           &:hover {
             background: var(--default-color-accent__hover);
             border-color: var(--default-color-accent__hover);
           }
         `}
-
       ${({ color }) =>
         color === 'orange' &&
         css`
           background: var(--default-color-orange);
           border-color: var(--default-color-orange);
-
           &:hover {
             background: var(--default-color-orange);
             border-color: var(--default-color-orange);
           }
         `}
-
-    ${({ color }) =>
+            ${({ color }) =>
         color === 'red' &&
         css`
           background: var(--default-color-red);
           border-color: var(--default-color-red);
-
           &:hover {
             background: var(--default-color-red);
             border-color: var(--default-color-red);
           }
         `}
+            ${({ color }) =>
+        color === 'green' &&
+        css`
+          background: var(--default-color-green);
+          border-color: var(--default-color-green);
+          &:hover {
+            background: var(--default-color-green);
+            border-color: var(--default-color-green);
+          }
+        `}
     `}
-
   ${({ appearance }) =>
     appearance === 'outlined' &&
     css`
       background: transparent;
-
       ${({ color }) =>
         color === 'default' &&
         css`
           border-color: var(--default-color-accent);
           color: var(--default-color-accent);
-
           &:hover {
             border-color: var(--default-color-accent__hover);
             color: var(--default-color-accent__hover);
           }
         `}
-
       ${({ color }) =>
         color === 'ghost' &&
         css`
           border-color: var(--default-color-text);
           color: var(--default-color-text);
-
           &:hover {
             border-color: var(--ghost-color-accent__hover);
             color: var(--ghost-color-accent__hover);
           }
         `}
-
-      ${({ color }) =>
+            ${({ color }) =>
         color === 'orange' &&
         css`
           border-color: var(--default-color-orange);
           color: var(--default-color-orange);
-
           &:hover {
             border-color: var(--default-color-orange);
             color: var(--default-color-orange);
           }
         `}
-
-    ${({ color }) =>
+            ${({ color }) =>
         color === 'red' &&
         css`
           border-color: var(--default-color-red);
           color: var(--default-color-red);
-
           &:hover {
             border-color: var(--default-color-red);
             color: var(--default-color-red);
+          }
+        `}
+
+            ${({ color }) =>
+        color === 'green' &&
+        css`
+          border-color: var(--default-color-green);
+          color: var(--default-color-green);
+          &:hover {
+            border-color: var(--default-color-green);
+            color: var(--default-color-green);
           }
         `}
     `}
