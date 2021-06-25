@@ -40,6 +40,8 @@ export const Category = styled(Chip)`
     `}
 `
 
+export const Status = styled(Category)
+
 export const Assessment = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -50,6 +52,8 @@ export const Assessment = styled.div`
 export const Meta = ({
   date,
   short,
+  color,
+  status,
   rating,
   category,
   shareUrl,
@@ -70,6 +74,18 @@ export const Meta = ({
           }}
         />
       </DateRow>
+    )}
+
+    {status && (
+      <Tooltip place={'top'} text={status}>
+        <Status
+          short={short && status.length > 25}
+          color={color || 'ghost'}
+          appearance={'outlined'}
+          size={'xs'}>
+          {status}
+        </Status>
+      </Tooltip>
     )}
 
     {category && (

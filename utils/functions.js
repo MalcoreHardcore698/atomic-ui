@@ -28,10 +28,25 @@ export const getLabelStatusChat = (status) => {
   }
 }
 
+export const getColorStatus = (status) => {
+  switch (status) {
+    case 'PUBLISHED':
+      return 'green'
+    case 'IN_WORK':
+      return 'orange'
+    case 'MODERATION':
+      return 'red'
+    default:
+      return status
+  }
+}
+
 export const getLabelStatus = (status) => {
   switch (status) {
     case 'PUBLISHED':
       return 'Опубликовано'
+    case 'IN_WORK':
+      return 'В работе'
     case 'MODERATION':
       return 'На модерации'
     default:
