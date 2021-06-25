@@ -40,7 +40,7 @@ export const Category = styled(Chip)`
     `}
 `
 
-export const Status = styled(Category)
+export const Status = styled(Category)``
 
 export const Assessment = styled.div`
   display: flex;
