@@ -10,7 +10,7 @@ import DateText from '../DateText'
 import ShareInSocial from '../ShareInSocial'
 
 export const Wrap = styled(Row)`
-  grid-gap: var(--default-gap);
+  grid-gap: 10px;
   flex-wrap: wrap;
 `
 
