@@ -67,8 +67,11 @@ export const Select = ({ appearance, className, style, ...props }) => (
           ...provided,
           ...(appearance === 'ghost' ? ghost : surface),
           ...font,
+          background: 'none',
           color: state.isFocused
             ? 'var(--default-color-accent)'
+            : state.isDisabled
+            ? 'var(--ghost-color-text)'
             : appearance === 'ghost'
             ? 'var(--input-color)'
             : 'var(--ghost-color-text)',
