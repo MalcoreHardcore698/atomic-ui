@@ -61,6 +61,20 @@ export const Wrap = styled.input`
       background: var(--input-background);
     `}
 
+  ${({ error }) =>
+    error &&
+    css`
+      color: var(--default-color-red);
+      border-color: var(--default-color-red);
+    `}
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      background: var(--default-disabled);
+      border-color: var(--default-disabled);
+    `}
+
   ${({ hidden }) =>
     hidden &&
     css`

@@ -42,6 +42,12 @@ export const Select = ({ appearance, className, style, ...props }) => (
         control: (provided, state) => ({
           ...provided,
           ...(appearance === 'ghost' ? ghost : surface),
+          ...(state.isDisabled
+            ? {
+                background: 'var(--default-disabled)',
+                borderColor: 'var(--default-disabled)'
+              }
+            : {}),
           ...font,
           minHeight: '38px',
           padding: '0 5px',

@@ -37,6 +37,20 @@ export const Wrap = styled.textarea`
       color: var(--input-color);
       background: var(--input-background);
     `}
+
+  ${({ error }) =>
+    error &&
+    css`
+      color: var(--default-color-red);
+      border-color: var(--default-color-red);
+    `}
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      background: var(--default-disabled);
+      border-color: var(--default-disabled);
+    `}
 `
 
 export const TextArea = React.forwardRef(({ defaultValue, ...props }, ref) => (
