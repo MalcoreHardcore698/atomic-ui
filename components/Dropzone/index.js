@@ -217,7 +217,7 @@ export const Dropzone = ({
       }
 
       const result =
-        candidate.length > 1
+        candidate.length > 0
           ? candidate
           : {
               ...getFile(candidate),
@@ -329,8 +329,8 @@ export const Dropzone = ({
           )}
 
           {multiple &&
-            ((Array.isArray(images) && images.length > 1) ||
-              (Array.isArray(defaultValue) && defaultValue?.length > 1)) && (
+            ((Array.isArray(images) && images.length > 0) ||
+              (Array.isArray(defaultValue) && defaultValue?.length > 0)) && (
               <PreviewList percentage={'minmax(196px, 1fr)'}>
                 {(defaultValue || images).map((file) => (
                   <Preview key={v4()} src={file?.blob || file} alt={file.id} />
