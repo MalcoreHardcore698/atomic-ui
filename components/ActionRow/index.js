@@ -6,6 +6,7 @@ import Title from '../Title'
 import Tooltip from '../Tooltip'
 import Button from '../Button'
 import Icon from '../Icon'
+import Checkbox from '../Checkbox'
 
 export const Wrap = styled(Row)`
   justify-content: space-between;
@@ -29,7 +30,18 @@ export const Name = styled(Row)`
   grid-gap: 5px;
 `
 
-export const ActionRow = ({ title, info, action, onAdd }) => (
+export const ActionRow = ({
+  title,
+  info,
+  action,
+  checkbox,
+  labelChecked,
+  disabledChecked,
+  defaultChecked,
+  rtlChecked,
+  onChecked,
+  onAdd
+}) => (
   <Wrap>
     <Name>
       <Title tag={'h4'}>{title}</Title>
@@ -39,13 +51,25 @@ export const ActionRow = ({ title, info, action, onAdd }) => (
         </Tooltip>
       )}
     </Name>
-    {action && (
-      <AddTooltip place={'left'} text={'Добавить'}>
-        <Button type={'button'} kind={'icon'} size={'xs'} onClick={onAdd}>
-          <Icon size={'xs'} icon={'add'} stroke={'white'} />
-        </Button>
-      </AddTooltip>
-    )}
+
+    <Row style={{ gridGap: 5 }}>
+      {checkbox && (
+        <Checkbox
+          label={labelChecked}
+          disabled={disabledChecked}
+          defaultChecked={defaultChecked}
+          onChange={onChecked}
+          rtl={rtlChecked}
+        />
+      )}
+      {action && (
+        <AddTooltip place={'left'} text={'Добавить'}>
+          <Button type={'button'} kind={'icon'} size={'xs'} onClick={onAdd}>
+            <Icon size={'xs'} icon={'add'} stroke={'white'} />
+          </Button>
+        </AddTooltip>
+      )}
+    </Row>
   </Wrap>
 )
 

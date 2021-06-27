@@ -150,22 +150,18 @@ export const ListItem = ({ item, readOnly, divided, onEdit, onDelete }) => {
     <React.Fragment>
       <Item readOnly={readOnly}>
         <Header readOnly={readOnly}>
-          {(readOnly && item.isVisualize && !isNaN(item.value)) ? (
+          {readOnly && item.isVisualize && !isNaN(item.value) ? (
             <Trunks value={item.value}>
-              {new Array(Number(item.value)).fill(null).map((_, i) => <span key={i} />)}
+              {new Array(Number(item.value)).fill(null).map((_, i) => (
+                <span key={i} />
+              ))}
             </Trunks>
           ) : null}
 
-          {(readOnly && !item.isVisualize) ? (
-            <Label>
-              {item.name}
-            </Label>
-          ) : null}
+          {readOnly && !item.isVisualize ? <Label>{item.name}</Label> : null}
 
           {readOnly ? (
-            <Value tag={'h4'}>
-              {item.isVisualize ? `${item.value} ${item.name}` : item.value}
-            </Value>
+            <Value tag={'h4'}>{item.isVisualize ? `${item.value} ${item.name}` : item.value}</Value>
           ) : null}
 
           {!readOnly && (
@@ -175,7 +171,8 @@ export const ListItem = ({ item, readOnly, divided, onEdit, onDelete }) => {
               appearance={'ghost'}
               placeholder={'Значение'}
               onChange={(e) =>
-                onEdit && onEdit({
+                onEdit &&
+                onEdit({
                   ...item,
                   value: getValue(e.target.value),
                   isVisualize: !isNaN(item.value)
@@ -203,7 +200,8 @@ export const ListItem = ({ item, readOnly, divided, onEdit, onDelete }) => {
                 type={'button'}
                 revert={!item.isVisualize}
                 onClick={() =>
-                  onEdit && onEdit({
+                  onEdit &&
+                  onEdit({
                     ...item,
                     value: !isNaN(item.value) ? item.value : MIN_LIMIT_VALUE,
                     isVisualize: !item.isVisualize
@@ -275,8 +273,9 @@ export const InteractiveList = ({ list, readOnly, onChange }) => {
 
 export const CharacteristicEditor = ({
   label,
-  defaultValue,
   readOnly,
+  defaultValue,
+  withoutAddButton,
   onChange
 }) => {
   const [characteristics, setCharacteristics] = useState(defaultValue || [])
@@ -304,13 +303,9 @@ export const CharacteristicEditor = ({
       <Container>
         {label && <InputLabel>{label}</InputLabel>}
 
-        <InteractiveList
-          list={characteristics}
-          onChange={setCharacteristics}
-          readOnly={readOnly}
-        />
+        <InteractiveList list={characteristics} onChange={setCharacteristics} readOnly={readOnly} />
 
-        {!readOnly && (
+        {!withoutAddButton && !readOnly && (
           <AddButton type={'button'} onClick={onAdd}>
             <span>Добавить</span>
             <Icon type={'button'} icon={'add'} stroke={'white'} />
