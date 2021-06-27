@@ -52,13 +52,13 @@ export const ActionRow = ({
       )}
     </Name>
 
-    <Row style={{ gridGap: 5 }}>
+    <Row style={{ gridGap: 5, alignItems: 'center' }}>
       {checkbox && (
         <Checkbox
           label={labelChecked}
           disabled={disabledChecked}
           defaultChecked={defaultChecked}
-          onChange={onChecked}
+          onChange={(e) => onChecked(e.target.checked)}
           rtl={rtlChecked}
         />
       )}
