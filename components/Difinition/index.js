@@ -52,7 +52,6 @@ export const Wrap = styled(Row)`
   position: relative;
   padding-right: var(--input-height-s);
   transition: opacity 150ms ease;
-  width: 100%;
 
   ${WrapPopper} {
     position: absolute;
