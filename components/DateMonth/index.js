@@ -1,10 +1,11 @@
-import React, { useMemo, memo } from 'react'
+import React, { memo } from 'react'
 import styled from 'styled-components'
 import { v4 } from 'uuid'
 
-import { getIntlWeekdays } from '../../assets/scripts/date'
 import Arrower from '../Arrower'
 import DateDay from '../DateDay'
+
+const WEEK_DAYS = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС']
 
 export const Wrap = styled.div`
   display: flex;
@@ -51,7 +52,6 @@ export const Day = styled.div``
 
 export const DateMonth = memo(
   ({
-    lang,
     month,
     value,
     filterDate,
@@ -62,8 +62,6 @@ export const DateMonth = memo(
     onCompare,
     onChange
   }) => {
-    const weekDays = useMemo(() => getIntlWeekdays(lang, 'short'), [lang])
-
     return (
       <Wrap>
         {withNavigate ? (
@@ -87,7 +85,7 @@ export const DateMonth = memo(
         )}
 
         <Headers>
-          {weekDays.map((weekDay) => (
+          {WEEK_DAYS.map((weekDay) => (
             <Header key={v4()}>{weekDay}</Header>
           ))}
         </Headers>
